@@ -20,9 +20,9 @@ public class Patrol : MonoBehaviour
     void Update()
     {
         if (step == 0) // Moving to point 1
-        { 
+        {
             transform.position = Vector3.MoveTowards(transform.position,
-                point1,speed);
+                point1, speed);
             if (transform.position == point1) // Start moving to point 2
             {
                 step = 1;

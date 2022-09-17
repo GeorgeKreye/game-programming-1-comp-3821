@@ -6,17 +6,25 @@ using UnityEngine.InputSystem;
 public class PhysicsPlayerControl : MonoBehaviour
 {
     public float forceStrength; // Strength of force, set in editor
+    public float jumpForceMultiplier; // How much to multiply forceStrength
+                                      // when jumping, set in editor
     private Rigidbody2D rb2d; // Rigidbody of object
+    private SpriteRenderer rend;
     private Vector2 force; // Force vector
     private float fX; // X component of force
     private float fY; // Y component of force
+    private bool faceRight;
 
     // Start is called before the first frame update
     void Start()
     {
         // Get rigidbody and create initial force vector
         rb2d = gameObject.GetComponent<Rigidbody2D>();
+        rend = gameObject.GetComponent<SpriteRenderer>();
         force = new Vector2(0f, 0f);
+
+        // start facing right
+        faceRight = true;
     }
 
     // Update is called once per frame
@@ -27,22 +35,18 @@ public class PhysicsPlayerControl : MonoBehaviour
         fY = 0f;
 
         // Check if inputs are being pressed and update
-        // movement components accordingly; allow for
-        // canceling and diagonal movement
+        // movement components accordingly
         var keyboard = Keyboard.current;
-        if (keyboard != null && keyboard.wKey.isPressed) // Up
+        if (keyboard != null && keyboard.wKey.isPressed &&
+            rb2d.velocity.y == 0) // Jump
         {
-            fY = forceStrength;
+            fY = forceStrength * jumpForceMultiplier;
         }
         if (keyboard != null && keyboard.aKey.isPressed) // Left
         {
             fX = -forceStrength;
         }
-        if (keyboard != null && keyboard.sKey.isPressed) // Down
-        {
-            fY = -forceStrength;
-        }
-        if (keyboard != null && keyboard.dKey.isPressed) // Right
+        else if (keyboard != null && keyboard.dKey.isPressed) // Right
         {
             fX = forceStrength;
         }
@@ -53,6 +57,19 @@ public class PhysicsPlayerControl : MonoBehaviour
 
     void FixedUpdate()
     {
+        // Check if sprite should be flipped
+        if (faceRight && force.x < 0)
+        {
+            faceRight = false;
+            rend.flipX = true;
+
+        }
+        else if (!faceRight && force.x > 0)
+        {
+            faceRight = true;
+            rend.flipX = false;
+        }
+
         // Move rigidbody using current force vector
         rb2d.AddForce(force);
     }

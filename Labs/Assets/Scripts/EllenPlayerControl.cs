@@ -41,6 +41,7 @@ public class EllenPlayerControl : MonoBehaviour
 
     private bool isGrounded; // Whether the player is grounded
 
+    // LAB 4
     [Tooltip("Force to apply to this game object when jumping")]
     [SerializeField]
     private float jumpForce;
@@ -48,6 +49,10 @@ public class EllenPlayerControl : MonoBehaviour
     [Tooltip("Artificial friction to apply to this game object when not moving")]
     [SerializeField]
     private float friction;
+
+    [Tooltip("The Sprite Renderer used by this game object")]
+    [SerializeField]
+    private SpriteRenderer spriteRenderer;
 
     // Awake is called when the object is first constructed
     private void Awake()
@@ -68,7 +73,7 @@ public class EllenPlayerControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        // Unused
     }
 
     // Update is called once per frame
@@ -76,6 +81,12 @@ public class EllenPlayerControl : MonoBehaviour
     {
         // Check if player is grounded
         CheckGrounded();
+
+        // Check movement direction
+        CheckDirection();
+
+        // Check if falling
+        CheckFalling();
     }
 
     private void OnValidate()
@@ -87,18 +98,18 @@ public class EllenPlayerControl : MonoBehaviour
     {
         // Extract x value
         moveInput = context.ReadValue<Vector2>() * Vector2.right;
-        Debug.Log("Got move input of " + moveInput);
     }
 
     public void Jump(InputAction.CallbackContext context)
     {
+        /* LAB 4
         // Check if jump key was pressed
         if (context.performed)
         {
             if (isGrounded)
             {
                 // Add force to jump
-                body.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+                body.AddForce(Vector2.up * jumpForce * body.mass, ForceMode2D.Impulse);
 
                 // Set trigger for jumping
                 animator.SetTrigger("Jump");
@@ -113,6 +124,7 @@ public class EllenPlayerControl : MonoBehaviour
                     ForceMode2D.Impulse);
             }
         }
+        */
     }
 
     private void FixedUpdate()
@@ -127,20 +139,18 @@ public class EllenPlayerControl : MonoBehaviour
     private void Move(Vector2 direction)
     {
         // Only move if there is a non-zero value for direction
-        if (!Mathf.Approximately(direction.x, 0))
+        if (Mathf.Abs(direction.x) > 0.01f)
         {
             // Calculate maximum speed difference
             float speedDiff = moveSpeed - Mathf.Abs(body.velocity.x);
-            Debug.Log("Difference from maximum speed: " + speedDiff);
-            if (!Mathf.Approximately(speedDiff, 0))
+            if (!Mathf.Approximately(speedDiff, 0f))
             {
                 // Accelerate
-                if (speedDiff > 0)
+                if (speedDiff > 0f)
                 {
                     float accelCap =
                         Mathf.Min(speedDiff / Time.fixedDeltaTime * body.mass,
-                        moveAcceleration);
-                    Debug.Log("Adding force of " + moveAcceleration);
+                        moveForce);
                     body.AddForce(direction * Vector2.right * accelCap,
                         ForceMode2D.Force);
                 }
@@ -179,5 +189,34 @@ public class EllenPlayerControl : MonoBehaviour
 
         // Set the IsGrounded parameter in the Animator
         animator.SetBool("IsGrounded", isGrounded);
+    }
+
+    private void CheckDirection()
+    {
+        // If nonneglible movement is happening in either direction,
+        // the sprite should face that direction
+        if (body.velocity.x > 0f)
+        {
+            spriteRenderer.flipX = false; // Face right
+        }
+        else if (body.velocity.x < 0f)
+        {
+            spriteRenderer.flipX = true; // Face left
+        }
+    }
+
+    private void CheckFalling()
+    {
+        /* LAB 4
+        bool isFalling = false;
+        // Check if player is falling (and not on a moving platform going
+        // downward); if Y velocity is 0 while not grounded we will be falling
+        // on the next frame
+        if (!isGrounded && body.velocity.y <= 0)
+        {
+            isFalling = true;
+        }
+        animator.SetBool("isFalling", isFalling);
+        */
     }
 }

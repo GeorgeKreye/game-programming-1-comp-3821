@@ -26,8 +26,11 @@ public class EllenPlayerControl : MonoBehaviour
     private float moveForce;
 
     // Public property for maxForce
-    public float MoveSpeed { get { return moveSpeed; }
-        set { moveSpeed = value; } }
+    public float MoveSpeed
+    {
+        get { return moveSpeed; }
+        set { moveSpeed = value; }
+    }
 
     [Tooltip("The box collider used by this game object")]
     [SerializeField]
@@ -41,6 +44,10 @@ public class EllenPlayerControl : MonoBehaviour
     [Tooltip("Force to apply to this game object when jumping")]
     [SerializeField]
     private float jumpForce;
+
+    [Tooltip("Artificial friction to apply to this game object when not moving")]
+    [SerializeField]
+    private float friction;
 
     // Awake is called when the object is first constructed
     private void Awake()
@@ -67,7 +74,7 @@ public class EllenPlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Check if player is grounded; update animation accordingly
+        // Check if player is grounded
         CheckGrounded();
     }
 
@@ -79,8 +86,8 @@ public class EllenPlayerControl : MonoBehaviour
     public void MoveActionPerformed(InputAction.CallbackContext context)
     {
         // Extract x value
-        moveInput = new Vector2(context.ReadValue<Vector2>().x, 0);
-        Debug.Log("Got move input of " + context.ReadValue<Vector2>().x);
+        moveInput = context.ReadValue<Vector2>() * Vector2.right;
+        Debug.Log("Got move input of " + moveInput);
     }
 
     public void Jump(InputAction.CallbackContext context)
@@ -127,17 +134,32 @@ public class EllenPlayerControl : MonoBehaviour
             Debug.Log("Difference from maximum speed: " + speedDiff);
             if (!Mathf.Approximately(speedDiff, 0))
             {
+                // Accelerate
                 if (speedDiff > 0)
                 {
                     float accelCap =
                         Mathf.Min(speedDiff / Time.fixedDeltaTime * body.mass,
                         moveAcceleration);
                     Debug.Log("Adding force of " + moveAcceleration);
-                    body.AddForce(direction * accelCap, ForceMode2D.Force);
+                    body.AddForce(direction * Vector2.right * accelCap,
+                        ForceMode2D.Force);
+                }
+                else
+                {
+                    // Decelerate
+                    body.AddForce(speedDiff *
+                        Mathf.Sign(body.velocity.x) * body.mass * Vector2.right,
+                        ForceMode2D.Impulse);
                 }
             }
         }
-
+        else if (isGrounded)
+        {
+            float amount = Mathf.Min(Mathf.Abs(body.velocity.x),
+                Mathf.Abs(friction));
+            amount *= Mathf.Sign(body.velocity.x);
+            body.AddForce(Vector2.right * -amount, ForceMode2D.Impulse);
+        }
     }
 
     // Updates the Animator's field for hoizontal movement

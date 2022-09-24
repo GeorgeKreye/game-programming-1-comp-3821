@@ -391,7 +391,7 @@ Transform:
   m_GameObject: {fileID: 792743188}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -4.33, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -487,7 +487,19 @@ MonoBehaviour:
     m_ActionId: 263aa970-ad25-4cb6-b9f5-055c300e9a1b
     m_ActionName: UI/TrackedDeviceOrientation
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 792743195}
+        m_TargetAssemblyTypeName: EllenPlayerControl, Assembly-CSharp
+        m_MethodName: Jump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 46b81d5a-573e-46b9-8177-5e1c9aa1e690
     m_ActionName: Player/Jump[/Keyboard/w,/Keyboard/upArrow]
   m_NeverAutoSwitchControlSchemes: 0
@@ -509,13 +521,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 792743189}
   body: {fileID: 792743190}
-  moveSpeed: 60
-  moveAcceleration: 20
+  moveSpeed: 240
+  moveAcceleration: 120
   boxCollider: {fileID: 792743191}
   envLayerMask:
     serializedVersion: 2
     m_Bits: 8
-  jumpForce: 0
+  jumpForce: 240
 --- !u!1 &1075021398
 GameObject:
   m_ObjectHideFlags: 0

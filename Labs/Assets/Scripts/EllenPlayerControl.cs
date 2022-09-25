@@ -38,10 +38,13 @@ public class EllenPlayerControl : MonoBehaviour
 
     [SerializeField]
     private LayerMask envLayerMask;
+    [SerializeField]
+    private LayerMask pushLayerMask;
 
     private bool isGrounded; // Whether the player is grounded
+    private bool isPushing; // Whether the player is pushing something
+    private bool canWallJump; // Whether the player is able to wall jump
 
-    // LAB 4
     [Tooltip("Force to apply to this game object when jumping")]
     [SerializeField]
     private float jumpForce;
@@ -66,7 +69,14 @@ public class EllenPlayerControl : MonoBehaviour
         {
             Debug.LogError("Could not find Rigidbody2D");
         }
-
+        if (boxCollider == null)
+        {
+            Debug.LogError("Could not find BoxCollider2D");
+        }
+        if (spriteRenderer == null)
+        {
+            Debug.LogError("Could not find SpriteRenderer - attached object may be incompatible");
+        }
         moveForce = body.mass * moveAcceleration;
     }
 
@@ -87,6 +97,9 @@ public class EllenPlayerControl : MonoBehaviour
 
         // Check if falling
         CheckFalling();
+
+        // Check if pushing
+        CheckPushing();
     }
 
     private void OnValidate()
@@ -102,7 +115,6 @@ public class EllenPlayerControl : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
-        /* LAB 4
         // Check if jump key was pressed
         if (context.performed)
         {
@@ -124,7 +136,6 @@ public class EllenPlayerControl : MonoBehaviour
                     ForceMode2D.Impulse);
             }
         }
-        */
     }
 
     private void FixedUpdate()
@@ -184,7 +195,7 @@ public class EllenPlayerControl : MonoBehaviour
             boxCollider.bounds.center, boxCollider.bounds.size, 0f,
             Vector2.down, .1f, envLayerMask);
 
-        // This returns null if the box cast failed
+        // Returns null if the box cast failed
         isGrounded = (boxCastHit.collider != null);
 
         // Set the IsGrounded parameter in the Animator
@@ -195,19 +206,21 @@ public class EllenPlayerControl : MonoBehaviour
     {
         // If nonneglible movement is happening in either direction,
         // the sprite should face that direction
-        if (body.velocity.x > 0f)
+        if (!Mathf.Approximately(body.velocity.x, 0f))
         {
-            spriteRenderer.flipX = false; // Face right
-        }
-        else if (body.velocity.x < 0f)
-        {
-            spriteRenderer.flipX = true; // Face left
+            if (body.velocity.x > 0.01f)
+            {
+                spriteRenderer.flipX = false; // Face right
+            }
+            else if (body.velocity.x < 0.01f)
+            {
+                spriteRenderer.flipX = true; // Face left
+            }
         }
     }
 
     private void CheckFalling()
     {
-        /* LAB 4
         bool isFalling = false;
         // Check if player is falling (and not on a moving platform going
         // downward); if Y velocity is 0 while not grounded we will be falling
@@ -216,7 +229,26 @@ public class EllenPlayerControl : MonoBehaviour
         {
             isFalling = true;
         }
-        animator.SetBool("isFalling", isFalling);
-        */
+        animator.SetBool("IsFalling", isFalling);
+    }
+
+    private void CheckPushing ()
+    {
+        RaycastHit2D boxCastHitL = Physics2D.BoxCast(boxCollider.bounds.center,
+            boxCollider.bounds.size, 0f, Vector2.left, .1f, pushLayerMask);
+        RaycastHit2D boxCastHitR = Physics2D.BoxCast(boxCollider.bounds.center,
+            boxCollider.bounds.size, 0f, Vector2.right, .1f, pushLayerMask);
+
+        // Returns null if the box cast failed
+        isPushing = (boxCastHitL.collider != null ||
+            boxCastHitR.collider != null);
+
+        // Set the IsPushing parameter in the Animator
+        animator.SetBool("IsPushing", isPushing);
+    }
+
+    private void CheckWall ()
+    {
+
     }
 }

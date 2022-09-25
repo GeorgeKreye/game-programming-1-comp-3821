@@ -41,7 +41,6 @@ public class EllenPlayerControl : MonoBehaviour
 
     private bool isGrounded; // Whether the player is grounded
 
-    // LAB 4
     [Tooltip("Force to apply to this game object when jumping")]
     [SerializeField]
     private float jumpForce;
@@ -102,7 +101,6 @@ public class EllenPlayerControl : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
-        /* LAB 4
         // Check if jump key was pressed
         if (context.performed)
         {
@@ -124,7 +122,6 @@ public class EllenPlayerControl : MonoBehaviour
                     ForceMode2D.Impulse);
             }
         }
-        */
     }
 
     private void FixedUpdate()
@@ -207,7 +204,6 @@ public class EllenPlayerControl : MonoBehaviour
 
     private void CheckFalling()
     {
-        /* LAB 4
         bool isFalling = false;
         // Check if player is falling (and not on a moving platform going
         // downward); if Y velocity is 0 while not grounded we will be falling
@@ -217,6 +213,5 @@ public class EllenPlayerControl : MonoBehaviour
             isFalling = true;
         }
         animator.SetBool("isFalling", isFalling);
-        */
     }
 }

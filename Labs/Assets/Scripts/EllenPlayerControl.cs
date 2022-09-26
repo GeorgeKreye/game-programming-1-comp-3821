@@ -25,6 +25,10 @@ public class EllenPlayerControl : MonoBehaviour
 
     private float moveForce;
 
+    [Tooltip("Maximum vertical speed (jumping or falling")]
+    [SerializeField]
+    private float maxVerticalSpeed;
+
     // Public property for maxForce
     public float MoveSpeed
     {
@@ -92,6 +96,9 @@ public class EllenPlayerControl : MonoBehaviour
         // Check if player is grounded
         CheckGrounded();
 
+        // Check if wall jumping is possible
+        CheckWall();
+
         // Check movement direction
         CheckDirection();
 
@@ -118,7 +125,7 @@ public class EllenPlayerControl : MonoBehaviour
         // Check if jump key was pressed
         if (context.performed)
         {
-            if (isGrounded)
+            if (isGrounded || canWallJump)
             {
                 // Add force to jump
                 body.AddForce(Vector2.up * jumpForce * body.mass, ForceMode2D.Impulse);
@@ -142,6 +149,9 @@ public class EllenPlayerControl : MonoBehaviour
     {
         // Call move fuction
         Move(moveInput);
+
+        // Check if vertical speed maximum has been reached
+        CapVerticalSpeed();
 
         // Update animation if horizontal movement is present
         CheckRunning();
@@ -232,7 +242,7 @@ public class EllenPlayerControl : MonoBehaviour
         animator.SetBool("IsFalling", isFalling);
     }
 
-    private void CheckPushing ()
+    private void CheckPushing()
     {
         RaycastHit2D boxCastHitL = Physics2D.BoxCast(boxCollider.bounds.center,
             boxCollider.bounds.size, 0f, Vector2.left, .1f, pushLayerMask);
@@ -247,8 +257,28 @@ public class EllenPlayerControl : MonoBehaviour
         animator.SetBool("IsPushing", isPushing);
     }
 
-    private void CheckWall ()
+    private void CheckWall()
     {
+        RaycastHit2D boxCastHitL = Physics2D.BoxCast(boxCollider.bounds.center,
+            boxCollider.bounds.size, 0f, Vector2.left, .1f, envLayerMask);
+        RaycastHit2D boxCastHitR = Physics2D.BoxCast(boxCollider.bounds.center,
+            boxCollider.bounds.size, 0f, Vector2.right, .1f, envLayerMask);
 
+        // Returns null if the box cast failed
+        canWallJump = (boxCastHitL.collider != null ||
+            boxCastHitR.collider != null);
+    }
+
+    private void CapVerticalSpeed()
+    {
+        // Calculate difference between max vertical speed and current speed
+        float speedDiff = maxVerticalSpeed - Mathf.Abs(body.velocity.y);
+
+        // If current speed is excessive, decelerate until it matches
+        if (speedDiff < 0f)
+        {
+            body.AddForce(speedDiff * -Mathf.Sign(body.velocity.y) * body.mass *
+                Vector2.down, ForceMode2D.Impulse);
+        }
     }
 }

@@ -1,0 +1,629 @@
+fileFormatVersion: 2
+guid: 767e84f8a2065c848b8c4e89a0fd9100
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: LaraCroft_SpriteSheet_FixedAlpha_0
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 206
+        width: 39
+        height: 55
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 142a34c43e8ab4450ba6a7fa2ddc1df9
+      internalID: 1559579260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LaraCroft_SpriteSheet_FixedAlpha_1
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 206
+        width: 39
+        height: 54
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad2366fdde0c1421ebb27512a341d297
+      internalID: -1360167469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LaraCroft_SpriteSheet_FixedAlpha_2
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 206
+        width: 39
+        height: 53
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ec14afb35a6f44eba6591c46906e17f
+      internalID: -613702767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LaraCroft_SpriteSheet_FixedAlpha_3
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 207
+        width: 62
+        height: 40
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e3de87cfd6cc40aab16721af91c48cc
+      internalID: -1646821433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LaraCroft_SpriteSheet_FixedAlpha_4
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 206
+        width: 62
+        height: 36
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5da1e3aae53b04b51acb79b988a8121b
+      internalID: 939026162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LaraCroft_SpriteSheet_FixedAlpha_5
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 206
+        width: 62
+        height: 37
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dad34177258a54de280e14ae8d549fb7
+      internalID: -1895637023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LaraCroft_SpriteSheet_FixedAlpha_6
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 127
+        width: 47
+        height: 45
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c6d9110e96e34b6f903716b2fb8753f
+      internalID: -1446332833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LaraCroft_SpriteSheet_FixedAlpha_7
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 128
+        width: 52
+        height: 42
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 202a122b8d05146c7a9bc44c9438773b
+      internalID: 1904696976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LaraCroft_SpriteSheet_FixedAlpha_8
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 125
+        width: 50
+        height: 45
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f73faeb5da9704df6aef324a857f9965
+      internalID: -2115210568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LaraCroft_SpriteSheet_FixedAlpha_9
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 126
+        width: 45
+        height: 47
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e52911b8600e5401e846024d1756c705
+      internalID: 1375506823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LaraCroft_SpriteSheet_FixedAlpha_10
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 77
+        width: 43
+        height: 44
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 342ab74ede5264a9293f7c643ae0e896
+      internalID: -1408006541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LaraCroft_SpriteSheet_FixedAlpha_11
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 78
+        width: 49
+        height: 41
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec1dfb3d228a0415787793cc51f7066b
+      internalID: 1571910770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LaraCroft_SpriteSheet_FixedAlpha_12
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 75
+        width: 48
+        height: 44
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd2ce0ce4ef8b452a94dce5c920d4238
+      internalID: -1801552349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LaraCroft_SpriteSheet_FixedAlpha_13
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 72
+        width: 41
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 181c223261aa943d4a85cbe177282808
+      internalID: -556568376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LaraCroft_SpriteSheet_FixedAlpha_14
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 77
+        width: 43
+        height: 43
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e019487939bd4814a7e9cc574e5b775
+      internalID: -1155461663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LaraCroft_SpriteSheet_FixedAlpha_15
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 4
+        width: 36
+        height: 48
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7dda868d70b4c44118c5693169a3515e
+      internalID: -629821745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LaraCroft_SpriteSheet_FixedAlpha_16
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 4
+        width: 36
+        height: 52
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98bd53189942b4005a651939b0b89f0f
+      internalID: 952158990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LaraCroft_SpriteSheet_FixedAlpha_17
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 4
+        width: 36
+        height: 52
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0eea3e3ca01ec483bb5396b6f809b41e
+      internalID: 1875201290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LaraCroft_SpriteSheet_FixedAlpha_18
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 3
+        width: 42
+        height: 53
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa2efbabb0443437ebcc5ee128168b01
+      internalID: -1901303044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LaraCroft_SpriteSheet_FixedAlpha_19
+      rect:
+        serializedVersion: 2
+        x: 188
+        y: 3
+        width: 39
+        height: 55
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc462724605c54dc88515b3665d89d8b
+      internalID: 1673643257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LaraCroft_SpriteSheet_FixedAlpha_20
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 3
+        width: 40
+        height: 54
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ae98e2bd7b7a46abb02aff8d7c7d71c
+      internalID: -1983574751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LaraCroft_SpriteSheet_FixedAlpha_21
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 3
+        width: 38
+        height: 56
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 389e0cc1875ad4150a311974657ff17c
+      internalID: -1133386623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LaraCroft_SpriteSheet_FixedAlpha_22
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 144
+        width: 7
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0eaf8538789314c67bebd544aa2c511d
+      internalID: 170606518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      LaraCroft_SpriteSheet_FixedAlpha_4: 939026162
+      LaraCroft_SpriteSheet_FixedAlpha_0: 1559579260
+      LaraCroft_SpriteSheet_FixedAlpha_20: -1983574751
+      LaraCroft_SpriteSheet_FixedAlpha_3: -1646821433
+      LaraCroft_SpriteSheet_FixedAlpha_6: -1446332833
+      LaraCroft_SpriteSheet_FixedAlpha_17: 1875201290
+      LaraCroft_SpriteSheet_FixedAlpha_11: 1571910770
+      LaraCroft_SpriteSheet_FixedAlpha_9: 1375506823
+      LaraCroft_SpriteSheet_FixedAlpha_19: 1673643257
+      LaraCroft_SpriteSheet_FixedAlpha_8: -2115210568
+      LaraCroft_SpriteSheet_FixedAlpha_7: 1904696976
+      LaraCroft_SpriteSheet_FixedAlpha_10: -1408006541
+      LaraCroft_SpriteSheet_FixedAlpha_15: -629821745
+      LaraCroft_SpriteSheet_FixedAlpha_14: -1155461663
+      LaraCroft_SpriteSheet_FixedAlpha_12: -1801552349
+      LaraCroft_SpriteSheet_FixedAlpha_21: -1133386623
+      LaraCroft_SpriteSheet_FixedAlpha_2: -613702767
+      LaraCroft_SpriteSheet_FixedAlpha_13: -556568376
+      LaraCroft_SpriteSheet_FixedAlpha_22: 170606518
+      LaraCroft_SpriteSheet_FixedAlpha_16: 952158990
+      LaraCroft_SpriteSheet_FixedAlpha_5: -1895637023
+      LaraCroft_SpriteSheet_FixedAlpha_18: -1901303044
+      LaraCroft_SpriteSheet_FixedAlpha_1: -1360167469
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

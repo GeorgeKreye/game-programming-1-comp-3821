@@ -18,6 +18,15 @@ public class FollowCamera : MonoBehaviour
     // Tracks target object's location
     private Transform targetLocation;
 
+    private void Awake()
+    {
+        // Make sure target GameObject is assigned
+        if (target == null)
+        {
+            Debug.LogError("No assigned target to follow");
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {

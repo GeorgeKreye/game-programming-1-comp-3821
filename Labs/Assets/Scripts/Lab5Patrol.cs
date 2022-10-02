@@ -18,12 +18,14 @@ public class Lab5Patrol : MonoBehaviour
     // Private fields
     private int currentPoint;
     private int pauseCounter;
+    private SpriteRenderer spriteRenderer;
 
     // Called before first frame update
     void Start()
     {
         pauseCounter = pauseTime - 1;
         currentPoint = 0;
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
 
     // Called every fixed framerate frame
@@ -32,6 +34,15 @@ public class Lab5Patrol : MonoBehaviour
         // Move if not pause paused
         if (pauseCounter == pauseTime - 1)
         {
+            // Flip sprite based on movement
+            if (transform.position.x > points[currentPoint].x)
+            {
+                spriteRenderer.flipX = true;
+            } else
+            {
+                spriteRenderer.flipX = false;
+            }
+
             // Move closer to endpoint
             transform.position = Vector3.MoveTowards(transform.position,
                 points[currentPoint], moveSpeed);

@@ -282,6 +282,7 @@ GameObject:
   - component: {fileID: 195179712}
   - component: {fileID: 195179714}
   - component: {fileID: 195179713}
+  - component: {fileID: 195179715}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -370,7 +371,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   points:
   - {x: -3, y: -1}
-  - {x: -5, y: 5}
+  - {x: -5, y: 4}
   - {x: 7, y: 2}
   pauseTime: 20
   moveSpeed: 0.1
@@ -421,6 +422,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.32, y: 0.32}
   m_EdgeRadius: 0
+--- !u!114 &195179715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 195179708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a12da1f54f894db3b52d353266da9e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &531721038
 GameObject:
   m_ObjectHideFlags: 0

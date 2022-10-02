@@ -37,10 +37,10 @@ public class Lab5Patrol : MonoBehaviour
             // Flip sprite based on movement
             if (transform.position.x > points[currentPoint].x)
             {
-                spriteRenderer.flipX = true;
+                spriteRenderer.flipX = false;
             } else
             {
-                spriteRenderer.flipX = false;
+                spriteRenderer.flipX = true;
             }
 
             // Move closer to endpoint

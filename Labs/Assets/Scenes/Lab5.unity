@@ -369,12 +369,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adcd42d8a4c744d29ac9472017667c20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  points:
-  - {x: -3, y: -1}
-  - {x: -5, y: 4}
-  - {x: 7, y: 2}
-  pauseTime: 20
-  moveSpeed: 0.1
+  speed: 0.05
+  waypoints:
+  - {x: -5, y: -3, z: 0}
+  - {x: -6, y: 3, z: 0}
+  - {x: 7, y: 2, z: 0}
 --- !u!50 &195179713
 Rigidbody2D:
   serializedVersion: 4

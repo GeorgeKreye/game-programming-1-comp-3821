@@ -33,12 +33,6 @@ public class HUDController : MonoBehaviour
         AddLife(heartsContainer);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        // Unused
-    }
-
     public void AddLife(VisualElement container)
     {
         // Set heart image

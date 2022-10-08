@@ -11,6 +11,8 @@ public class PauseController : MonoBehaviour
     [Tooltip("The Player Game Object to 'unfreeze' if resume button is " +
         "pressed")]
     [SerializeField] private GameObject player;
+    [Tooltip("The HUD UI containing the game timer to pause/unpause")]
+    [SerializeField] private GameObject HUD;
 
     // Buttons
     private Button resumeButton;
@@ -19,13 +21,23 @@ public class PauseController : MonoBehaviour
     // Player control script
     private PausePlayerControl playerControl;
 
+    // HUD timer
+    private Timer HUDTimer;
+
     // Start is called before the first frame update
     void Start()
     {
+        // Get HUD timer compnent
+        HUDTimer = HUD.GetComponent<Timer>();
+        if (HUDTimer == null)
+        {
+            Debug.LogError("Could not find a Timer script on HUD object");
+        }
+
         // Hide pause UI
         OnPlayerUnpaused();
 
-        // Get Player Input component
+        // Get Player Control component
         playerControl = player.GetComponent<PausePlayerControl>();
         if (playerControl == null)
         {
@@ -40,17 +52,24 @@ public class PauseController : MonoBehaviour
 
         // Set button functions
         resumeButton.clicked += ResumeButtonClicked;
+        quitButton.clicked += QuitButtonClicked;
     }
 
     public void OnPlayerPaused()
     {
         // Make pause menu visible
         UIDoc.rootVisualElement.style.visibility = Visibility.Visible;
+
+        // Pause HUD timer
+        HUDTimer.PauseTimer();
     }
     public void OnPlayerUnpaused()
     {
         // Make pause menu invisible
         UIDoc.rootVisualElement.style.visibility = Visibility.Hidden;
+
+        // Resume HUD timer
+        HUDTimer.ResumeTimer();
     }
 
     void ResumeButtonClicked()
@@ -60,5 +79,11 @@ public class PauseController : MonoBehaviour
 
         // Hide pause menu
         OnPlayerUnpaused();
+    }
+
+    void QuitButtonClicked()
+    {
+        Debug.Log("No Main Menu implemented, full quitting instead");
+        Application.Quit();
     }
 }

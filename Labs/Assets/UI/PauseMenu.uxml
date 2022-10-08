@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/PauseStyle.uss?fileID=7433441132597879392&amp;guid=d86b13699b2fd4f07971df7030033d3e&amp;type=3#PauseStyle" />
     <ui:VisualElement name="Root" style="flex-grow: 1; align-items: center; justify-content: space-around;">
-        <ui:VisualElement name="PauseBox" style="background-color: rgb(255, 255, 255); height: 141px; width: 292px; align-items: stretch; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+        <ui:VisualElement name="PauseBox" style="background-color: rgb(255, 255, 255); height: 73px; width: 213px; align-items: stretch; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
             <ui:VisualElement name="PauseText" style="justify-content: space-around; align-items: center; height: 62px;">
                 <ui:Label text="GAME PAUSED" display-tooltip-when-elided="true" name="PauseLabel" style="color: rgb(0, 0, 0); font-size: 20px; -unity-font-style: bold;" />
             </ui:VisualElement>

@@ -5,12 +5,15 @@ using UnityEngine.UIElements;
 
 public class HUDController : MonoBehaviour
 {
+    // Fields
     [Tooltip("Reference to the UIDocument object")]
     [SerializeField] private UIDocument UIDoc;
-
-    [Tooltip("Starting time s")]
-    [SerializeField] private float levelTime;
+    [Tooltip("Timer script to use for timer display")]
+    [SerializeField] private Timer HUDTimer;
+    [Tooltip("Sprite to use for hearts display")]
     [SerializeField] private Sprite heartImage;
+    [Tooltip("Timer duration in seconds")]
+    [SerializeField] private int timerDuration;
 
     // Elements to modify
     private VisualElement heartsContainer;
@@ -25,12 +28,16 @@ public class HUDController : MonoBehaviour
         heartsContainer = root.Q<VisualElement>("Lives");
 
         // Set initial timer
-        timeLabel.text = "" + levelTime;
+        timeLabel.text = "" + timerDuration;
 
         // Add initial hearts
         AddLife(heartsContainer);
         AddLife(heartsContainer);
         AddLife(heartsContainer);
+
+        // Start timer
+        HUDTimer.Duration = timerDuration;
+        HUDTimer.StartTimer();
     }
 
     public void AddLife(VisualElement container)
@@ -48,5 +55,14 @@ public class HUDController : MonoBehaviour
 
         // Add to container
         container.Add(heart);
+    }
+
+    public void UpdateTimer()
+    {
+        // Round time left to nearest second
+        int timeLeftSeconds = Mathf.RoundToInt(HUDTimer.TimeLeft());
+
+        // Update timer to show time left
+        timeLabel.text = "" + timeLeftSeconds;
     }
 }

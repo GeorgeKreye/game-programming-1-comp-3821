@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -12,6 +12,8 @@ public class Timer : MonoBehaviour
     // fields we need to handle the timer
     private bool timerStarted;
     private float endTime;
+    private float stopTime;
+    private bool paused;
 
     // each of these will take a function that takes a float as the argument, how much time has elapsed 
     [Header("Timer Events")]
@@ -68,10 +70,46 @@ public class Timer : MonoBehaviour
         {
             // now send a tick message message
             OnTimerTick.Invoke(this);
+
+            // pause
+            if (paused)
+            {
+                // get time stopped at
+                stopTime = TimeLeft();
+            }
+            while (paused)
+            {
+                // move end time back if paused
+                endTime = Time.time + stopTime;
+                yield return null;
+            }
+
             yield return null;
         }
 
         // now fire the last message, that the timer has finished
         OnTimerExpired.Invoke(this);
+    }
+
+    ///<summary>
+    /// Pauses the current timer
+    ///</summary>
+    public void PauseTimer()
+    {
+        if (timerStarted)
+        {
+            paused = true;
+        }
+    }
+
+    ///<summary>
+    /// Resumes the current timer
+    ///</summary>
+    public void ResumeTimer()
+    {
+        if (timerStarted)
+        {
+            paused = false;
+        }
     }
 }

@@ -39,7 +39,7 @@ public class PausePlayerControl : MonoBehaviour
         controller.OnPlayerUnpaused();
     }
 
-    private void SwitchCurrentActionMap(string mapName)
+    public void SwitchCurrentActionMap(string mapName)
     {
         // Disable current action map
         input.currentActionMap.Disable();

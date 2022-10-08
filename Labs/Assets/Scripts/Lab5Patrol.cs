@@ -4,63 +4,67 @@ using UnityEngine;
 
 public class Lab5Patrol : MonoBehaviour
 {
-    // Serialized fields
-    [Tooltip("Endpoints for patrol")]
+    [Tooltip("The speed this GameObject will travel at")]
     [SerializeField]
-    private Vector2[] points;
-    [Tooltip("Number of frames to pause for at each endpoint")]
+    private float speed;
+    [Tooltip("The points this GameObject will travel between")]
     [SerializeField]
-    private int pauseTime;
-    [Tooltip("Speed to move at between points")]
+    private List<Vector3> waypoints;
+    [Tooltip("The duration in seconds to puase at each point")]
     [SerializeField]
-    private float moveSpeed;
+    private float pauseTime;
+    private Coroutine path;
+    private SpriteRenderer sprite;
 
-    // Private fields
-    private int currentPoint;
-    private int pauseCounter;
-    private SpriteRenderer spriteRenderer;
-
-    // Called before first frame update
     void Start()
     {
-        pauseCounter = pauseTime - 1;
-        currentPoint = 0;
-        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        sprite = gameObject.GetComponent<SpriteRenderer>();
+        StartPatrolling();
     }
 
-    // Called every fixed framerate frame
-    void FixedUpdate()
+    public virtual void StartPatrolling()
     {
-        // Move if not pause paused
-        if (pauseCounter == pauseTime - 1)
+        path = StartCoroutine(PatrolWaypoints());
+    }
+
+    public virtual void StopPatrolling()
+    {
+        StopCoroutine(path);
+    }
+
+    public IEnumerator PatrolWaypoints()
+    {
+        // path forever, unless StopPatrolling is called
+        while (true)
         {
-            // Flip sprite based on movement
-            if (transform.position.x > points[currentPoint].x)
+            // iterate through all points
+            foreach (Vector3 point in waypoints)
             {
-                spriteRenderer.flipX = false;
-            } else
-            {
-                spriteRenderer.flipX = true;
+                // move towards current point
+                while (transform.position != point)
+                {
+                    // change sprite direction if moving
+                    if (!Mathf.Approximately(Mathf.Abs(point.x) -
+                        Mathf.Abs(transform.position.x), 0f))
+                    {
+                        if (point.x < transform.position.x) // moving left
+                        {
+                            sprite.flipX = false;
+                        }
+                        else // moving right
+                        {
+                            sprite.flipX = true;
+                        }
+                    }
+                    // move
+                    transform.position = Vector3.MoveTowards(transform.position, point, speed);
+                    yield return null;
+                }
+
+                // pause between points
+                yield return new WaitForSeconds(pauseTime);
             }
-
-            // Move closer to endpoint
-            transform.position = Vector3.MoveTowards(transform.position,
-                points[currentPoint], moveSpeed);
-
-            // Check if current endpoint has been reached
-            if (transform.position.Equals(points[currentPoint]))
-            {
-                // Update point to travel to next
-                currentPoint = (currentPoint + 1) % points.Length;
-
-                // Start pause
-                pauseCounter = 0;
-            }
-        }
-        else // Do nothing since paused
-        {
-            // Update pause counter
-            pauseCounter++;
+            yield return null;
         }
     }
 }

@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 557937297}
   - component: {fileID: 557937296}
   - component: {fileID: 557937298}
+  - component: {fileID: 557937299}
   m_Layer: 5
   m_Name: HUD
   m_TagString: Untagged
@@ -185,8 +186,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UIDoc: {fileID: 557937296}
-  levelTime: 30
+  levelTime: 100
   heartImage: {fileID: 1125796127, guid: 7ba6c5b8100c74537bc1e1cef8f29374, type: 3}
+--- !u!114 &557937299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 557937295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52e0127b13e714247ad9b18bcdd6c20c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerDuration: 100
+  OnTimerStarted:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTimerExpired:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTimerTick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &625155067
 GameObject:
   m_ObjectHideFlags: 0
@@ -513,6 +536,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 0fb5d72e-7225-4f93-b172-b829c3f50192
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1846313234}
+        m_TargetAssemblyTypeName: PausePlayerControl, Assembly-CSharp
+        m_MethodName: OnPlayerUnpause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d38f6e05-3713-44b4-841a-6fa67bb3c965
+    m_ActionName: UI/Unpause[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

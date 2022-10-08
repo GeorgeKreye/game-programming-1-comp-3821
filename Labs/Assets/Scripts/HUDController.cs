@@ -31,16 +31,16 @@ public class HUDController : MonoBehaviour
         timeLabel.text = "" + timerDuration;
 
         // Add initial hearts
-        AddLife(heartsContainer);
-        AddLife(heartsContainer);
-        AddLife(heartsContainer);
+        AddLife();
+        AddLife();
+        AddLife();
 
         // Start timer
         HUDTimer.Duration = timerDuration;
         HUDTimer.StartTimer();
     }
 
-    public void AddLife(VisualElement container)
+    public void AddLife()
     {
         // Set heart image
         Image heart = new Image();
@@ -54,7 +54,13 @@ public class HUDController : MonoBehaviour
         heart.style.height = 32;
 
         // Add to container
-        container.Add(heart);
+        heartsContainer.Add(heart);
+    }
+
+    public void RemoveLife()
+    {
+        // Remove heart from container
+        heartsContainer.RemoveAt(0);
     }
 
     public void UpdateTimer()

@@ -600,6 +600,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: d38f6e05-3713-44b4-841a-6fa67bb3c965
     m_ActionName: UI/Unpause[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1846313234}
+        m_TargetAssemblyTypeName: PausePlayerControl, Assembly-CSharp
+        m_MethodName: HeartAdd
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 62be1d3d-0e9c-4cce-91d6-df28dafff0cc
+    m_ActionName: Player/AddLife[/Keyboard/equals]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1846313234}
+        m_TargetAssemblyTypeName: PausePlayerControl, Assembly-CSharp
+        m_MethodName: HeartRemove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 4ffa7525-3966-4b8b-8394-867b408ebe9e
+    m_ActionName: Player/RemoveLife[/Keyboard/minus]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -619,3 +651,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   input: {fileID: 1846313233}
   pauseUI: {fileID: 625155067}
+  HUD: {fileID: 557937295}

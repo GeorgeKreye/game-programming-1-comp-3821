@@ -26,15 +26,26 @@ public class EnviromentalHazard : MonoBehaviour
             Debug.LogError("No player GameObject found");
         }
 
+        // Get game manager
+        gameManager = GameManager.Instance;
+        if (gameManager == null)
+        {
+            Debug.LogError("Could not find an active GameManager instance");
+        }
+
         // Get player controller
         playerControl = player.GetComponent<LCControl>();
+        if (playerControl == null)
+        {
+            Debug.LogError("Could not find a player controller");
+        }
     }
 
-
+    // Collision handling
     void OnTriggerEnter2D(Collider2D collision)
     {
-        // Make sure collision was with player
-        if (collision.gameObject == player)
+        // Make sure collision was with the player
+        if (collision.gameObject.CompareTag("Player"))
         {
             // Remove life
             gameManager.RemoveLife();

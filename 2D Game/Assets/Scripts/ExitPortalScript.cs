@@ -6,8 +6,6 @@ public class ExitPortalScript : MonoBehaviour
 {
     [Tooltip("The player GameObject to check for collision with")]
     [SerializeField] private GameObject player;
-    [Tooltip("The BoxCollder2D of the exit portal, configured as trigger")]
-    [SerializeField] private BoxCollider2D trigger;
     [Tooltip("The name of the scene to switch to on collision")]
     [SerializeField] private string nextScene;
 
@@ -19,14 +17,6 @@ public class ExitPortalScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Make sure trigger is present and configured
-        if (trigger == null || trigger.isTrigger)
-        {
-            Debug.LogError("Could not find a BoxColldier2D trigger attached " +
-                "to " + gameObject + "; make sure one is present and " +
-                "properly configured");
-        }
-
         // Get game manager
         gameManager = GameManager.Instance;
         if (gameManager == null)
@@ -39,7 +29,7 @@ public class ExitPortalScript : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         // Check if player collided
-        if (collision.gameObject == player)
+        if (collision.gameObject.CompareTag("Player"))
         {
             // Switch scene
             gameManager.ChangeScene(nextScene);

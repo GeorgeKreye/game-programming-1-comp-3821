@@ -6,19 +6,29 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-
+    /// <summary>
+    /// Internal reference to active GameManager instance
+    /// </summary>
     private static GameManager _instance;
     /// <summary>
     /// The active GameManager instance
     /// </summary>
     public static GameManager Instance { get { return _instance; } }
 
+    // enums
     /// <summary>
     /// States of the game
     /// </summary>
     public enum GameState
     {
-        Menu, Playing, Paused
+        Menu, Playing, Credits
+    }
+    /// <summary>
+    /// Pause states of the game
+    /// </summary>
+    public enum PauseState
+    {
+        Playing, Paused
     }
 
     /// <summary>
@@ -26,8 +36,10 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public GameState CurrentGameState { get; private set; }
 
-    // Event for game start
-
+    /// <summary>
+    /// The current pause state of the game
+    /// </summary>
+    public PauseState CurrentPauseState { get; private set; }
 
     // Events for game pausing
     [Tooltip("Triggers when the game is paused")]
@@ -35,14 +47,13 @@ public class GameManager : MonoBehaviour
     [Tooltip("Triggers when the game is resumed")]
     public UnityEvent OnGameResumed;
 
-
     /// <summary>
     /// The amount of lives the player currently has
     /// </summary>
-    public int lives { get; private set; }
+    public int Lives { get; private set; }
 
-    // Event for lives updates
-    [Tooltip("Triggers when lives count is updated")]
+    //Event for lives changing
+    [Tooltip("Triggers when lives counter is changed")]
     public UnityEvent OnLivesChanged;
 
     // Run on instance being loaded
@@ -54,6 +65,8 @@ public class GameManager : MonoBehaviour
             // Set this GameManager as current instance
             _instance = this;
 
+            Debug.Log("Instance set to " + _instance);
+
             // Preserve between scenes
             DontDestroyOnLoad(this.gameObject);
         }
@@ -64,7 +77,7 @@ public class GameManager : MonoBehaviour
         }
 
         // Initial lives
-        lives = 3;
+        Lives = 3;
     }
 
     /// <summary>
@@ -85,7 +98,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
 
         // Set current game state
-        CurrentGameState = GameState.Paused;
+        CurrentPauseState = PauseState.Paused;
 
         // Notify listening objects
         OnGamePaused.Invoke();
@@ -100,7 +113,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
 
         // Set current game state
-        CurrentGameState = GameState.Playing;
+        CurrentPauseState = PauseState.Playing;
 
         // Notify listening objects
         OnGameResumed.Invoke();
@@ -116,27 +129,46 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(newScene);
     }
 
+    /// <summary>
+    /// Adds a life to lives counter when called
+    /// </summary>
     public void AddLife()
     {
         // Add life
-        lives++;
-
-        // Notify listening objects
-        OnLivesChanged.Invoke();
+        Lives++;
     }
 
+    /// <summary>
+    /// Removes a life from lives counter when called; also checks for game over
+    /// </summary>
     public void RemoveLife()
     {
         // Remove life
-        lives--;
+        Lives--;
 
         // Check if game over
-        if (lives <= 0)
+        if (Lives <= 0)
         {
-            GameOver.Invoke();
+            // Go to game over screen
+            GameOver();
+            return;
         }
+    }
 
-        // Notify listening objects
-        OnLivesChanged.Invoke();
+    /// <summary>
+    /// Sets game state to be an out-of-
+    /// </summary>
+    public void MenuActive()
+    {
+        CurrentGameState = GameState.Menu;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    private void GameOver()
+    {
+        // Change scene to game over scene
+        ChangeScene("GameOver");
     }
 }

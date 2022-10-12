@@ -28,16 +28,6 @@ public class MainMenuControl : MonoBehaviour
 
     void Awake()
     {
-        // Get game manager
-        gameManager = GameManager.Instance;
-        if (gameManager == null)
-        {
-            Debug.LogError("Could not find an active GameManager instance");
-        }
-
-        // Tell game manager that we are on main menu
-        gameManager.
-
         // Get buttons
         VisualElement root = UIDoc.rootVisualElement;
         playButton = root.Q<Button>("PlayButton");
@@ -46,6 +36,19 @@ public class MainMenuControl : MonoBehaviour
         // Set button behavior
         playButton.clicked += PlayButtonClicked;
         quitButton.clicked += QuitButtonClicked;
+    }
+
+    void Start()
+    {
+        // Get game manager
+        gameManager = GameManager.Instance;
+        if (gameManager == null)
+        {
+            Debug.LogError("Could not find an active GameManager instance");
+        }
+
+        // Tell game manager that we are on main menu
+        gameManager.MenuActive();
     }
 
     /// <summary>

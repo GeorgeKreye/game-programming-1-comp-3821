@@ -8,11 +8,11 @@ public class ExitPortalScript : MonoBehaviour
     [SerializeField] private GameObject player;
     [Tooltip("The BoxCollder2D of the exit portal, configured as trigger")]
     [SerializeField] private BoxCollider2D trigger;
-    [Tooltip("The scene to switch to on collision")]
+    [Tooltip("The name of the scene to switch to on collision")]
     [SerializeField] private string nextScene;
 
     /// <summary>
-    /// The active Game Manager instance
+    /// The active GameManager instance
     /// </summary>
     private GameManager gameManager;
 
@@ -33,12 +33,6 @@ public class ExitPortalScript : MonoBehaviour
         {
             Debug.LogError("Could not find an active GameManager instance");
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     // Collision handling

@@ -35,8 +35,8 @@ public class MainMenuControl : MonoBehaviour
             Debug.LogError("Could not find an active GameManager instance");
         }
 
-        // Freeze time on main menu
-        gameManager.PauseGame();
+        // Tell game manager that we are on main menu
+        gameManager.
 
         // Get buttons
         VisualElement root = UIDoc.rootVisualElement;

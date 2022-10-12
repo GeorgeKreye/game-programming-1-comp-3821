@@ -54,7 +54,9 @@ public class LCControl : MonoBehaviour
     private bool touchingWall;
     private bool touchingWallL;
     private bool touchingWallR;
+    private Vector3 lastCheckpoint;
 
+    // Awake is called when the script instance is loaded
     private void Awake()
     {
         // Make sure components are set
@@ -71,7 +73,8 @@ public class LCControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Unused
+        // Set starting checkpoint to starting position
+        lastCheckpoint = transform.position;
     }
 
     // Update is called once per frame
@@ -90,6 +93,7 @@ public class LCControl : MonoBehaviour
         CheckWallJump();
     }
 
+    // FixedUpdate is called once per fixed framerate frame
     void FixedUpdate()
     {
         // Call move function
@@ -102,17 +106,25 @@ public class LCControl : MonoBehaviour
         CheckRunning();
     }
 
+    // OnValidate is called when script is loaded or if a value is changed
+    // in inspector
     private void OnValidate()
     {
         moveForce = body.mass * horizMoveSpeed;
     }
 
+    /// <summary>
+    /// Queues movement when movement buttons are pressed
+    /// </summary>
     public void MoveActionPerformed(InputAction.CallbackContext context)
     {
         // Extract x value
         moveInput = context.ReadValue<Vector2>() * Vector2.right;
     }
 
+    /// <summary>
+    /// Performs a jump if possible & jump key is pressed
+    /// </summary>
     public void Jump(InputAction.CallbackContext context)
     {
         // Check if jump key was pressed
@@ -166,6 +178,10 @@ public class LCControl : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Adds movement force to rigidbody
+    /// </summary>
+    /// <param name="direction">The movement to apply</param>
     private void Move(Vector2 direction)
     {
         // Only move if there is a non-zero value for direction
@@ -201,11 +217,17 @@ public class LCControl : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Checks if player is running and updates animations accordingly
+    /// </summary>
     private void CheckRunning()
     {
         animator.SetFloat("Horizontal Speed", Mathf.Abs(body.velocity.x));
     }
 
+    /// <summary>
+    /// Checks if player is grounded
+    /// </summary>
     private void CheckGrounded()
     {
         // Use a box cast to check for ground
@@ -225,6 +247,9 @@ public class LCControl : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Checks what direction the player is moving in and changes orientation accordingly
+    /// </summary>
     private void CheckDirection()
     {
         // Don't check direction if no notable movement is taking place
@@ -241,6 +266,9 @@ public class LCControl : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Checks if player is falling
+    /// </summary>
     private void CheckFalling()
     {
         bool isFalling = false;
@@ -254,6 +282,9 @@ public class LCControl : MonoBehaviour
         animator.SetBool("Falling", isFalling);
     }
 
+    /// <summary>
+    /// Enforces maximum vertical speed
+    /// </summary>
     private void CapVerticalSpeed()
     {
         // Calculate difference between max vertical speed and current speed
@@ -267,6 +298,9 @@ public class LCControl : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Checks if player is touching a wall that can be walljumped off of
+    /// </summary>
     private void CheckWallJump()
     {
         // Use two box casts to check for walls
@@ -281,5 +315,23 @@ public class LCControl : MonoBehaviour
 
         // Returns null if both box casts failed (i.e. no wall)
         touchingWall = (touchingWallL || touchingWallR);
+    }
+
+    /// <summary>
+    /// Sets checkpoint to a given position; should only be called on collision with checkpoint
+    /// </summary>
+    public void setCheckpoint(Vector3 newCheckpoint)
+    {
+        // Set checkpoint
+        lastCheckpoint = newCheckpoint;
+    }
+
+    /// <summary>
+    /// Sends player to last checkpoint; should only be called on death
+    /// </summary>
+    public void ToLastCheckpoint()
+    {
+        // Set position to last checkpoint
+        transform.position = lastCheckpoint;
     }
 }

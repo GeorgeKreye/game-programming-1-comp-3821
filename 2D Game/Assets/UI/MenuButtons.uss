@@ -1,0 +1,12 @@
+.button {
+    bottom: auto;
+    height: 16px;
+    width: 87px;
+}
+
+.button:hover {
+    bottom: auto;
+    height: 16px;
+    width: 87px;
+    background-color: rgba(4, 203, 255, 255);
+}

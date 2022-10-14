@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Script to make a camera track a target
+/// </summary>
 public class FollowCamera : MonoBehaviour
 {
     // Target Game Object to follow

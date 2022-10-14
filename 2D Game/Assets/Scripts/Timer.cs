@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// Coroutine-based timer
+/// </summary>
 public class Timer : MonoBehaviour
 {
     [Header("Timer Configuration")]

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+/// <summary>
+/// Controls the ingame HUD UI
+/// </summary>
 public class HUDController : MonoBehaviour
 {
     [Tooltip("The UI Document used by the HUD")]
@@ -126,6 +129,15 @@ public class HUDController : MonoBehaviour
 
         // Update lives count cache
         livesCache = newLivesCount;
+    }
+
+    /// <summary>
+    /// Called once per level timer tick
+    /// </summary>
+    public void LevelTimerTick()
+    {
+        // Update timer display
+        timerLabel.text = "" + Mathf.RoundToInt(levelTimer.TimeLeft());
     }
 
     /// <summary>

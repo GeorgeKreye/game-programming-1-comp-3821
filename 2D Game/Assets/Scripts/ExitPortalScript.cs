@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Script for exit portal behavior
+/// </summary>
 public class ExitPortalScript : MonoBehaviour
 {
     [Tooltip("The player GameObject to check for collision with")]

@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Manages game events
+/// </summary>
 public class GameManager : MonoBehaviour
 {
     /// <summary>

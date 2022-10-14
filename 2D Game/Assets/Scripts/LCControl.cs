@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Script for player control
+/// </summary>
 public class LCControl : MonoBehaviour
 {
     // Components

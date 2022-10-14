@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+/// <summary>
+/// Controls the main menu UI
+/// </summary>
 public class MainMenuControl : MonoBehaviour
 {
     // fields

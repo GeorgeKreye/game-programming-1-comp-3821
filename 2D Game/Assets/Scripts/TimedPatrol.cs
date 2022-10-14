@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// AI for a patrolling enemy that turns around after a set time
+/// </summary>
 public class TimedPatrol : MonoBehaviour
 {
     [Header("Components")]

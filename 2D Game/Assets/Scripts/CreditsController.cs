@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+/// <summary>
+/// Controls the credits UI
+/// </summary>
 public class CreditsController : MonoBehaviour
 {
     [Tooltip("The UI Document used by the credits menu")]
@@ -33,20 +36,33 @@ public class CreditsController : MonoBehaviour
 
         // Start hidden
         UIDoc.rootVisualElement.style.visibility = Visibility.Hidden;
+
+        // Get close button
+        closeButton = UIDoc.rootVisualElement.Q<Button>("CloseButton");
+
+        // Set close button action
+        closeButton.clicked += Close;
     }
 
-    // Update is called once per frame
-    void Update()
+    // OnDestroy is called before a script instance is destroyed
+    void OnDestroy()
     {
-        
+        // Remove close button action
+        closeButton.clicked -= Close;
     }
 
+    /// <summary>
+    /// Opens the credits UI
+    /// </summary>
     public void Open()
     {
         // Show this UI
         UIDoc.rootVisualElement.style.visibility = Visibility.Visible;
     }
 
+    /// <summary>
+    /// Closes the credits UI
+    /// </summary>
     void Close()
     {
         // Hide this UI

@@ -1,0 +1,4 @@
+.timer-text {
+    font-size: 8px;
+    color: rgba(255, 255, 255, 255);
+}

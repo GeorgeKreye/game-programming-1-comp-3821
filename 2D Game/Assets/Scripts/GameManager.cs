@@ -134,6 +134,9 @@ public class GameManager : MonoBehaviour
     {
         // Add life
         Lives++;
+
+        // Notify listening objects
+        OnLivesChanged.Invoke();
     }
 
     /// <summary>
@@ -151,6 +154,9 @@ public class GameManager : MonoBehaviour
             GameOver();
             return;
         }
+
+        // Notify listening objects
+        OnLivesChanged.Invoke();
     }
 
     /// <summary>
@@ -162,9 +168,9 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// Called when a Game Over occurs
     /// </summary>
-    private void GameOver()
+    public void GameOver()
     {
         // Change scene to game over scene
         ChangeScene("GameOver");

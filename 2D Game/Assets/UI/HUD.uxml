@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/TimerText.uss?fileID=7433441132597879392&amp;guid=eeeab09857b1340a098d6d7ac3c8a3aa&amp;type=3#TimerText" />
+    <ui:VisualElement name="Root" style="flex-grow: 1; flex-direction: row;">
+        <ui:VisualElement name="Lives" style="height: 57px; width: 118px; flex-direction: row;" />
+        <ui:VisualElement name="Timer" style="flex-direction: row;">
+            <ui:Label text="Time: " display-tooltip-when-elided="true" name="TimerLabel" class="timer-text" />
+            <ui:Label text="NaN" display-tooltip-when-elided="true" name="TimerValue" class="timer-text" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

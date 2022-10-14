@@ -8,4 +8,4 @@ UI Main Menu Logo - https://textcraft.net/
 Background Music - https://incompetech.com/music/royalty-free/music.html
 Victory and Defeat SFX - https://gamesounds.xyz/
 Enemy Sprite Sheet - TBD
-Lives sprite - https://opengameart.org/content/heart-pixel-art
+Lives Sprites - https://opengameart.org/content/heart-pixel-art

@@ -214,6 +214,14 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 2ce0fd08-5efb-422c-9b2f-3e108956db9a
     m_ActionName: Player/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e8f86245-8322-4ff1-9149-64db200ca298
+    m_ActionName: Player/Pause[/Keyboard/p]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0febea78-e76b-4c58-8347-b419cc4781b0
+    m_ActionName: UI/Unpause[/Keyboard/p]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -235,6 +243,7 @@ MonoBehaviour:
   body: {fileID: 5080460366636208021}
   boxCollider: {fileID: 5080460366636208022}
   spriteRenderer: {fileID: 5080460366636208025}
+  input: {fileID: 5080460366636208027}
   horizMoveSpeed: 10
   maxHorizontalSpeed: 10
   maxVerticalSpeed: 10

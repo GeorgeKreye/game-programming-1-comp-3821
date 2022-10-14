@@ -18,6 +18,9 @@ public class LCControl : MonoBehaviour
     [Tooltip("The SpriteRenderer used by this GameObject")]
     [SerializeField]
     private SpriteRenderer spriteRenderer;
+    [Tooltip("Input used for player control")]
+    [SerializeField]
+    private PlayerInput input;
 
     // Other serialized fields
     [Tooltip("The horizontal movement increment of this GameObject")]
@@ -55,6 +58,7 @@ public class LCControl : MonoBehaviour
     private bool touchingWallL;
     private bool touchingWallR;
     private Vector3 lastCheckpoint;
+    private GameManager gameManager;
 
     // Awake is called when the script instance is loaded
     private void Awake()
@@ -75,6 +79,16 @@ public class LCControl : MonoBehaviour
     {
         // Set starting checkpoint to starting position
         lastCheckpoint = transform.position;
+
+        // Set initial action map
+        SwitchActionMap("Player");
+
+        // Get game manager
+        gameManager = GameManager.Instance;
+
+        // Listen for pause/unpause
+        gameManager.OnGamePaused.AddListener(OnPause);
+        gameManager.OnGameResumed.AddListener(OnResume);
     }
 
     // Update is called once per frame
@@ -108,9 +122,17 @@ public class LCControl : MonoBehaviour
 
     // OnValidate is called when script is loaded or if a value is changed
     // in inspector
-    private void OnValidate()
+    void OnValidate()
     {
         moveForce = body.mass * horizMoveSpeed;
+    }
+
+    // OnDestroy is called before script is destroyed
+    void OnDestroy()
+    {
+        // Stop listening
+        gameManager.OnGamePaused.RemoveListener(OnPause);
+        gameManager.OnGameResumed.RemoveListener(OnResume);
     }
 
     /// <summary>
@@ -333,5 +355,68 @@ public class LCControl : MonoBehaviour
     {
         // Set position to last checkpoint
         transform.position = lastCheckpoint;
+    }
+
+    /// <summary>
+    /// Called when player presses the P key to pause the game
+    /// </summary>
+    public void PlayerPaused(InputAction.CallbackContext context)
+    {
+        // Pause game
+        gameManager.PauseGame();
+    }
+
+    /// <summary>
+    /// Called when player presses the P key to unpause the game
+    /// </summary>
+    public void PlayerUnpaused(InputAction.CallbackContext context)
+    {
+        gameManager.ResumeGame();
+    }
+
+    /// <summary>
+    /// Switches to the specified action map
+    /// </summary>
+    /// <param name="newMap">The name of the action map to switch to</param>
+    void SwitchActionMap(string newMap)
+    {
+        // Disable current action map
+        input.currentActionMap.Disable();
+
+        // Switch to new action map
+        input.SwitchCurrentActionMap(newMap);
+
+        // Change cursor state
+        switch (newMap)
+        {
+            case "UI":
+                // Unlock cursor and show mouse
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+                break;
+            default:
+                // Lock cursor and hide mouse
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                break;
+        }
+    }
+
+    /// <summary>
+    /// Called when game is paused
+    /// </summary>
+    void OnPause()
+    {
+        // Switch to UI map
+        SwitchActionMap("UI");
+    }
+
+    /// <summary>
+    /// Called when game is resumed
+    /// </summary>
+    void OnResume()
+    {
+        // Switch to player map
+        SwitchActionMap("Player");
     }
 }

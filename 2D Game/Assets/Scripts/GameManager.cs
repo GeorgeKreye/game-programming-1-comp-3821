@@ -125,6 +125,21 @@ public class GameManager : MonoBehaviour
     {
         // Change scene
         SceneManager.LoadScene(newScene);
+
+        // Set game state depending on scene type loaded
+        switch (newScene)
+        {
+            case string x when x.StartsWith("Level"): // Game level
+                CurrentGameState = GameState.Playing;
+                ResumeGame();
+                break;
+            case "Credits": // End credits
+                CurrentGameState = GameState.Credits;
+                break;
+            default: // Menu
+                CurrentGameState = GameState.Menu;
+                break;
+        }
     }
 
     /// <summary>
@@ -160,19 +175,11 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Sets game state to be an out-of-
-    /// </summary>
-    public void MenuActive()
-    {
-        CurrentGameState = GameState.Menu;
-    }
-
-    /// <summary>
     /// Called when a Game Over occurs
     /// </summary>
     public void GameOver()
     {
-        // Change scene to game over scene
+        // Change scene to game over menu
         ChangeScene("GameOver");
     }
 }

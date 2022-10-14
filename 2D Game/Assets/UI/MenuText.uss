@@ -1,0 +1,14 @@
+.paragraph {
+    font-size: 8px;
+    color: rgb(0, 0, 0);
+    height: 50px;
+    width: 234px;
+    flex-wrap: nowrap;
+    white-space: normal;
+}
+
+.title {
+    -unity-font-style: bold;
+    color: rgb(0, 0, 0);
+    font-size: 24px;
+}

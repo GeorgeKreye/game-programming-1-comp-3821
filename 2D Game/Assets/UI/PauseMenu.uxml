@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/MenuButtons.uss?fileID=7433441132597879392&amp;guid=eaddcd41a214b41b0814a2ac07913247&amp;type=3#MenuButtons" />
+    <ui:VisualElement name="Root" style="flex-grow: 1; justify-content: center; align-items: center; background-color: rgba(0, 0, 0, 0.51);">
+        <ui:VisualElement name="PauseBox" style="align-items: stretch; height: 75px; width: 235px; background-color: rgb(255, 255, 255); border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-left-width: 3px; border-right-width: 3px; border-top-width: 3px; border-bottom-width: 3px; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px;">
+            <ui:Label text="GAME PAUSED" display-tooltip-when-elided="true" name="PauseLabel" style="-unity-text-align: upper-center; -unity-font-style: bold; font-size: 24px; color: rgb(0, 0, 0);" />
+            <ui:VisualElement name="ButtonContainer" style="flex-grow: 1; justify-content: center; align-items: center; flex-direction: row;">
+                <ui:Button text="Resume" display-tooltip-when-elided="true" name="ResumeButton" class="button" />
+                <ui:VisualElement name="Spacer" style="height: 2px; width: 32px;" />
+                <ui:Button text="Main Menu" display-tooltip-when-elided="true" name="MainMenuButton" class="button" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

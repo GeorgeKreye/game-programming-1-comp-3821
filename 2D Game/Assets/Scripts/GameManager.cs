@@ -65,8 +65,6 @@ public class GameManager : MonoBehaviour
             // Set this GameManager as current instance
             _instance = this;
 
-            Debug.Log("Instance set to " + _instance);
-
             // Preserve between scenes
             DontDestroyOnLoad(this.gameObject);
         }

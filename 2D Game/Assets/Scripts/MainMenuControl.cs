@@ -51,6 +51,13 @@ public class MainMenuControl : MonoBehaviour
         gameManager.MenuActive();
     }
 
+    void OnDestroy()
+    {
+        // Remove button behavior
+        playButton.clicked -= PlayButtonClicked;
+        quitButton.clicked -= QuitButtonClicked;
+    }
+
     /// <summary>
     /// Changes scene upon the play button being clicked
     /// </summary>

@@ -8577,7 +8577,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3506430862249328742, guid: e5be81d9b33634981a52d6b436cf7174, type: 3}
       propertyPath: nextScene
-      value: Level3
+      value: GameOver
       objectReference: {fileID: 0}
     - target: {fileID: 6680884745456817000, guid: e5be81d9b33634981a52d6b436cf7174, type: 3}
       propertyPath: m_Size.x

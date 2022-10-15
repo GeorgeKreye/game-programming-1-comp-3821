@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Script to make a camera track a target
+/// </summary>
 public class FollowCamera : MonoBehaviour
 {
     // Target Game Object to follow
@@ -15,7 +18,9 @@ public class FollowCamera : MonoBehaviour
     [SerializeField]
     private Vector2 offset;
 
-    // Tracks target object's location
+    /// <summary>
+    /// The current location of the GameObject to follow
+    /// </summary>
     private Transform targetLocation;
 
     private void Awake()
@@ -41,7 +46,7 @@ public class FollowCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Update position
+        // Keep camera on player
         transform.position = new Vector3(targetLocation.position.x + offset.x,
             targetLocation.position.y + offset.y, transform.position.z);
     }

@@ -42,7 +42,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -103,7 +103,385 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Portal_FixedAlpha_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 215
+        width: 75
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2aa0f13698cda4519b830f81d98fdf98
+      internalID: 1842020811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Portal_FixedAlpha_1
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 215
+        width: 75
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 639bb615e1f0049c0876e49e6ac78889
+      internalID: 1255846022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Portal_FixedAlpha_2
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 215
+        width: 75
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e487724230ba6494c8e5087f3be5c1d6
+      internalID: 1678396266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Portal_FixedAlpha_3
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 215
+        width: 75
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f36f09a867f44ba182969250f13547d
+      internalID: -1020642812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Portal_FixedAlpha_4
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 215
+        width: 75
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e43b6a9f7b0e647cbb50e4242b52d796
+      internalID: 165147980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Portal_FixedAlpha_5
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 146
+        width: 75
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b3d13583f2cf437ba1c1e85c017a96f
+      internalID: 773408189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Portal_FixedAlpha_6
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 146
+        width: 75
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c07aa75c80f5e45ba85042c4c045efcc
+      internalID: 504415162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Portal_FixedAlpha_7
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 146
+        width: 75
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c84c855feb60441e1bb1f79cce6425eb
+      internalID: -172051869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Portal_FixedAlpha_8
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 146
+        width: 75
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3c6248e34b9c4cc686c9a3c6e02382f
+      internalID: 587819492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Portal_FixedAlpha_9
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 146
+        width: 75
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8db579858cea1426fbb475851c217a21
+      internalID: 1975968194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Portal_FixedAlpha_10
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 77
+        width: 75
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56291c9606eb34daaa811df416489460
+      internalID: -1727250086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Portal_FixedAlpha_11
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 77
+        width: 75
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e30a85453c0b44c379551d6b448ff5b7
+      internalID: 615059578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Portal_FixedAlpha_12
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 77
+        width: 75
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e4c1221315d146129401e9c4c0c6d8a
+      internalID: 171043104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Portal_FixedAlpha_13
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 77
+        width: 75
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ea156893981a4659889073af102ae9b
+      internalID: 2125961148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Portal_FixedAlpha_14
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 77
+        width: 75
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9d24ae08ebc04b94a875a650747c943
+      internalID: 356863919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Portal_FixedAlpha_15
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 6
+        width: 75
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 045f5fb06d7474db1a99ed91cf1e8cd2
+      internalID: 1559334479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Portal_FixedAlpha_16
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 6
+        width: 75
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9bc5e9fa139344389db1c38365bedcf
+      internalID: -702969306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Portal_FixedAlpha_17
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 6
+        width: 75
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 930ee09ca86c649bc9d6b723d8f16781
+      internalID: -1817506498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -114,7 +492,25 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Portal_FixedAlpha_2: 1678396266
+      Portal_FixedAlpha_12: 171043104
+      Portal_FixedAlpha_8: 587819492
+      Portal_FixedAlpha_14: 356863919
+      Portal_FixedAlpha_4: 165147980
+      Portal_FixedAlpha_15: 1559334479
+      Portal_FixedAlpha_7: -172051869
+      Portal_FixedAlpha_0: 1842020811
+      Portal_FixedAlpha_10: -1727250086
+      Portal_FixedAlpha_11: 615059578
+      Portal_FixedAlpha_3: -1020642812
+      Portal_FixedAlpha_1: 1255846022
+      Portal_FixedAlpha_9: 1975968194
+      Portal_FixedAlpha_5: 773408189
+      Portal_FixedAlpha_13: 2125961148
+      Portal_FixedAlpha_6: 504415162
+      Portal_FixedAlpha_17: -1817506498
+      Portal_FixedAlpha_16: -702969306
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

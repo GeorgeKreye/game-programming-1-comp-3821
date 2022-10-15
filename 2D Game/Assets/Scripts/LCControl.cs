@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Script for player control
+/// </summary>
 public class LCControl : MonoBehaviour
 {
     // Components
@@ -18,6 +21,9 @@ public class LCControl : MonoBehaviour
     [Tooltip("The SpriteRenderer used by this GameObject")]
     [SerializeField]
     private SpriteRenderer spriteRenderer;
+    [Tooltip("Input used for player control")]
+    [SerializeField]
+    private PlayerInput input;
 
     // Other serialized fields
     [Tooltip("The horizontal movement increment of this GameObject")]
@@ -54,7 +60,10 @@ public class LCControl : MonoBehaviour
     private bool touchingWall;
     private bool touchingWallL;
     private bool touchingWallR;
+    private Vector3 lastCheckpoint;
+    private GameManager gameManager;
 
+    // Awake is called when the script instance is loaded
     private void Awake()
     {
         // Make sure components are set
@@ -71,7 +80,18 @@ public class LCControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Unused
+        // Set starting checkpoint to starting position
+        lastCheckpoint = transform.position;
+
+        // Set initial action map
+        SwitchActionMap("Player");
+
+        // Get game manager
+        gameManager = GameManager.Instance;
+
+        // Listen for pause/unpause
+        gameManager.OnGamePaused.AddListener(OnPause);
+        gameManager.OnGameResumed.AddListener(OnResume);
     }
 
     // Update is called once per frame
@@ -90,6 +110,7 @@ public class LCControl : MonoBehaviour
         CheckWallJump();
     }
 
+    // FixedUpdate is called once per fixed framerate frame
     void FixedUpdate()
     {
         // Call move function
@@ -102,17 +123,33 @@ public class LCControl : MonoBehaviour
         CheckRunning();
     }
 
-    private void OnValidate()
+    // OnValidate is called when script is loaded or if a value is changed
+    // in inspector
+    void OnValidate()
     {
         moveForce = body.mass * horizMoveSpeed;
     }
 
+    // OnDestroy is called before script is destroyed
+    void OnDestroy()
+    {
+        // Stop listening
+        gameManager.OnGamePaused.RemoveListener(OnPause);
+        gameManager.OnGameResumed.RemoveListener(OnResume);
+    }
+
+    /// <summary>
+    /// Queues movement when movement buttons are pressed
+    /// </summary>
     public void MoveActionPerformed(InputAction.CallbackContext context)
     {
         // Extract x value
         moveInput = context.ReadValue<Vector2>() * Vector2.right;
     }
 
+    /// <summary>
+    /// Performs a jump if possible & jump key is pressed
+    /// </summary>
     public void Jump(InputAction.CallbackContext context)
     {
         // Check if jump key was pressed
@@ -166,6 +203,10 @@ public class LCControl : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Adds movement force to rigidbody
+    /// </summary>
+    /// <param name="direction">The movement to apply</param>
     private void Move(Vector2 direction)
     {
         // Only move if there is a non-zero value for direction
@@ -201,11 +242,17 @@ public class LCControl : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Checks if player is running and updates animations accordingly
+    /// </summary>
     private void CheckRunning()
     {
         animator.SetFloat("Horizontal Speed", Mathf.Abs(body.velocity.x));
     }
 
+    /// <summary>
+    /// Checks if player is grounded
+    /// </summary>
     private void CheckGrounded()
     {
         // Use a box cast to check for ground
@@ -225,6 +272,9 @@ public class LCControl : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Checks what direction the player is moving in and changes orientation accordingly
+    /// </summary>
     private void CheckDirection()
     {
         // Don't check direction if no notable movement is taking place
@@ -241,6 +291,9 @@ public class LCControl : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Checks if player is falling
+    /// </summary>
     private void CheckFalling()
     {
         bool isFalling = false;
@@ -254,6 +307,9 @@ public class LCControl : MonoBehaviour
         animator.SetBool("Falling", isFalling);
     }
 
+    /// <summary>
+    /// Enforces maximum vertical speed
+    /// </summary>
     private void CapVerticalSpeed()
     {
         // Calculate difference between max vertical speed and current speed
@@ -267,6 +323,9 @@ public class LCControl : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Checks if player is touching a wall that can be walljumped off of
+    /// </summary>
     private void CheckWallJump()
     {
         // Use two box casts to check for walls
@@ -281,5 +340,86 @@ public class LCControl : MonoBehaviour
 
         // Returns null if both box casts failed (i.e. no wall)
         touchingWall = (touchingWallL || touchingWallR);
+    }
+
+    /// <summary>
+    /// Sets checkpoint to a given position; should only be called on collision with checkpoint
+    /// </summary>
+    public void setCheckpoint(Vector3 newCheckpoint)
+    {
+        // Set checkpoint
+        lastCheckpoint = newCheckpoint;
+    }
+
+    /// <summary>
+    /// Sends player to last checkpoint; should only be called on death
+    /// </summary>
+    public void ToLastCheckpoint()
+    {
+        // Set position to last checkpoint
+        transform.position = lastCheckpoint;
+    }
+
+    /// <summary>
+    /// Called when player presses the P key to pause the game
+    /// </summary>
+    public void PlayerPaused(InputAction.CallbackContext context)
+    {
+        // Pause game
+        gameManager.PauseGame();
+    }
+
+    /// <summary>
+    /// Called when player presses the P key to unpause the game
+    /// </summary>
+    public void PlayerUnpaused(InputAction.CallbackContext context)
+    {
+        gameManager.ResumeGame();
+    }
+
+    /// <summary>
+    /// Switches to the specified action map
+    /// </summary>
+    /// <param name="newMap">The name of the action map to switch to</param>
+    void SwitchActionMap(string newMap)
+    {
+        // Disable current action map
+        input.currentActionMap.Disable();
+
+        // Switch to new action map
+        input.SwitchCurrentActionMap(newMap);
+
+        // Change cursor state
+        switch (newMap)
+        {
+            case "UI":
+                // Unlock cursor and show mouse
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+                break;
+            default:
+                // Lock cursor and hide mouse
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                break;
+        }
+    }
+
+    /// <summary>
+    /// Called when game is paused
+    /// </summary>
+    void OnPause()
+    {
+        // Switch to UI map
+        SwitchActionMap("UI");
+    }
+
+    /// <summary>
+    /// Called when game is resumed
+    /// </summary>
+    void OnResume()
+    {
+        // Switch to player map
+        SwitchActionMap("Player");
     }
 }

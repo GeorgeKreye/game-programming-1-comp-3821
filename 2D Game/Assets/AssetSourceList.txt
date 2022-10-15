@@ -7,5 +7,5 @@ UI Main Menu Background - https://www.vecteezy.com/vector-art/1102791-soft-blurr
 UI Main Menu Logo - https://textcraft.net/
 Background Music - https://incompetech.com/music/royalty-free/music.html
 Victory and Defeat SFX - https://gamesounds.xyz/
-Enemy Sprite Sheet - TBD
+Enemy Sprite Sheet - https://craftpix.net/freebies/free-city-enemies-pixel-art-sprite-sheets/
 Lives Sprites - https://opengameart.org/content/heart-pixel-art

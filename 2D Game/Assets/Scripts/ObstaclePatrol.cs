@@ -30,11 +30,23 @@ public class ObstaclePatrol : MonoBehaviour
     /// </summary>
     private bool reversed;
 
+    /// <summary>
+    /// The SpriteRenderer used for this GameObject
+    /// </summary>
+    private SpriteRenderer sprite;
+
     // Start is called before the first frame update
     void Start()
     {
         // Initial movement direction (reversed = left, !reversed = right)
         reversed = startReversed;
+
+        // Get spriteRenderer
+        sprite = gameObject.GetComponent<SpriteRenderer>();
+        if (sprite == null)
+        {
+            Debug.LogError("Could not find a SpriteRenderer on " + gameObject);
+        }
     }
 
     // FixedUpdate is called once per fixed framerate frame
@@ -56,6 +68,13 @@ public class ObstaclePatrol : MonoBehaviour
 
         // Check for edge
         CheckForEdge();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        // update sprite direction
+        sprite.flipX = reversed;
     }
 
     /// <summary>
@@ -101,20 +120,33 @@ public class ObstaclePatrol : MonoBehaviour
     /// </summary>
     void CheckForEdge()
     {
+        // Calculate cast startpoints and distance
+        Vector2 startL = new Vector2(transform.position.x -
+            boxCollider.bounds.extents.x, transform.position.y);
+        Vector2 startR = new Vector2(transform.position.x +
+            boxCollider.bounds.extents.x, transform.position.y);
+        float dist = 1f;
+
         //Make raycasts
-        RaycastHit2D leftEdge = Physics2D.BoxCast(boxCollider.bounds.center,
-            boxCollider.bounds.size, 0f, new Vector2(-1, -1), .1f,
+        RaycastHit2D castHitL = Physics2D.Raycast(startL, Vector2.down, dist,
             groundLayerMask);
-        RaycastHit2D rightEdge = Physics2D.BoxCast(boxCollider.bounds.center,
-            boxCollider.bounds.size, 0f, new Vector2(1, -1), .1f,
+        RaycastHit2D castHitR = Physics2D.Raycast(startR, Vector2.down, dist,
             groundLayerMask);
 
+        //DEBUG
+        Vector2 endL = new Vector2(transform.position.x -
+            boxCollider.bounds.extents.x, transform.position.y - dist);
+        Vector2 endR = new Vector2(transform.position.x +
+            boxCollider.bounds.extents.x, transform.position.y - dist);
+        Debug.DrawLine(startL, endL, Color.magenta);
+        Debug.DrawLine(startR, endR, Color.magenta);
+
         // Change direction if either raycast failed
-        if (leftEdge.collider == null || rightEdge.collider == null)
+        if (castHitL.collider == null || castHitR.collider == null)
         {
             Debug.Log("Drop found");
             // Change direction
-            if (leftEdge.collider == null)
+            if (castHitL.collider == null)
             {
                 // Go right
                 reversed = false;
@@ -126,8 +158,18 @@ public class ObstaclePatrol : MonoBehaviour
             }
 
             // Stop current movement
-            body.AddForce(body.velocity.x * body.mass * Vector2.left,
+            // (with a nudge to prevent being stuck on edge)
+            if (!Mathf.Approximately(body.velocity.x,0f))
+            {
+                float nudge = 0.1f;
+                if (!reversed)
+                {
+                    nudge = -nudge;
+                }
+                body.AddForce((body.velocity.x + nudge) * body.mass * Vector2.left,
                 ForceMode2D.Impulse);
+            }
+            
         }
     }
 
@@ -157,10 +199,18 @@ public class ObstaclePatrol : MonoBehaviour
     void CheckForObstacle()
     {
         // Check for obstacles
-        RaycastHit2D castHitL = Physics2D.Raycast(boxCollider.bounds.center, Vector2.left,
-            boxCollider.bounds.extents.x,obstacleLayerMask);
-        RaycastHit2D castHitR = Physics2D.Raycast(boxCollider.bounds.center, Vector2.right,
-            boxCollider.bounds.extents.x,obstacleLayerMask);
+        RaycastHit2D castHitL = Physics2D.Raycast(transform.position,
+            Vector2.left, 1f, obstacleLayerMask);
+        RaycastHit2D castHitR = Physics2D.Raycast(transform.position,
+            Vector2.right, 1f, obstacleLayerMask);
+
+        // DEBUG
+        Vector2 endL = new Vector2(transform.position.x -
+            (boxCollider.bounds.extents.x + 1f),transform.position.y);
+        Vector2 endR = new Vector2(transform.position.x +
+            (boxCollider.bounds.extents.x + 1f), transform.position.y);
+        Debug.DrawLine(transform.position,endL,Color.green);
+        Debug.DrawLine(transform.position,endR,Color.green);
 
         // Change direction if a wall is detected
         if (castHitL.collider != null || castHitR.collider != null)

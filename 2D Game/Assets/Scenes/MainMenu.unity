@@ -186,7 +186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UIDoc: {fileID: 218099409}
   playScene: Level1
-  credits: {fileID: 0}
+  credits: {fileID: 323010219}
 --- !u!1 &314485170
 GameObject:
   m_ObjectHideFlags: 0

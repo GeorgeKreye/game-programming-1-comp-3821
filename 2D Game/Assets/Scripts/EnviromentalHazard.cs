@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Script for environmental hazard behavior
+/// </summary>
 public class EnviromentalHazard : MonoBehaviour
 {
     [Tooltip("The player GameObject")]

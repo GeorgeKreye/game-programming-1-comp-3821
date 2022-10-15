@@ -8,5 +8,18 @@
     bottom: auto;
     height: 16px;
     width: 87px;
+    background-color: rgb(4, 203, 255);
+}
+
+.button-small {
+    width: 50px;
+    height: 12px;
+    font-size: 9px;
+}
+
+.button-small:hover {
+    width: 50px;
+    height: 12px;
+    font-size: 9px;
     background-color: rgba(4, 203, 255, 255);
 }

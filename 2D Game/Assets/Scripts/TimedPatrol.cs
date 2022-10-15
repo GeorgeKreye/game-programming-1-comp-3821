@@ -18,7 +18,7 @@ public class TimedPatrol : MonoBehaviour
     [SerializeField] private float duration;
     [Tooltip("Whether movement should start reversed (facing left)")]
     [SerializeField] private bool startReversed;
-    [Tooltip("The movement speed of the patrol")]
+    [Tooltip("The movement speed increment of the patrol")]
     [SerializeField] private float moveSpeed;
     [Tooltip("The maximum speed this GameObject can move at")]
     [SerializeField] private float maxSpeed;

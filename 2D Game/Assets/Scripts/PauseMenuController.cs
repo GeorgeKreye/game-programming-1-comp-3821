@@ -63,12 +63,6 @@ public class PauseMenuController : MonoBehaviour
         gameManager.OnGameResumed.RemoveListener(OnResumed);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     /// <summary>
     /// Called when the resume button is clicked
     /// </summary>

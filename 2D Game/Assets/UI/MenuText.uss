@@ -11,4 +11,5 @@
     -unity-font-style: bold;
     color: rgb(0, 0, 0);
     font-size: 24px;
+    -unity-text-align: upper-center;
 }

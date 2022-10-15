@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/MenuButtons.uss?fileID=7433441132597879392&amp;guid=eaddcd41a214b41b0814a2ac07913247&amp;type=3#MenuButtons" />
+    <Style src="project://database/Assets/UI/MenuText.uss?fileID=7433441132597879392&amp;guid=5bd8c6c1de4654658af8d6cd92e8f02b&amp;type=3#MenuText" />
+    <ui:VisualElement name="Root" style="flex-grow: 1; flex-direction: column; align-items: center; justify-content: center;">
+        <ui:VisualElement name="GameOverMenu" style="height: 66px; width: 157px; color: rgb(255, 255, 255); border-left-width: 3px; border-right-width: 3px; border-top-width: 3px; border-bottom-width: 3px; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; background-color: rgb(255, 255, 255); align-items: center; justify-content: center;">
+            <ui:Label text="GAME OVER" display-tooltip-when-elided="true" name="GameOverLabel" class="title" />
+            <ui:VisualElement name="GameOverButtons" style="align-items: center; justify-content: center; height: 49px; width: 114px;">
+                <ui:Button text="Main Menu" display-tooltip-when-elided="true" name="MenuButton" class="button-small" />
+                <ui:Button text="Quit" display-tooltip-when-elided="true" name="QuitButton" class="button-small" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

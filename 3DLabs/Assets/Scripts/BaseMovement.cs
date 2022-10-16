@@ -29,7 +29,7 @@ public class BaseMovement : MonoBehaviour
     #region Unity Functions
     virtual protected void Awake()
     {
-        throw new System.NotImplementedException();
+
     }
 
 

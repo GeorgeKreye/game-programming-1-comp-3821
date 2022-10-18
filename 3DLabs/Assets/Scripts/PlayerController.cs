@@ -27,11 +27,17 @@ public class PlayerController : MonoBehaviour
     private void SubscribeInputActions()
     {
         playerInputActions.Player.Move.started += MoveActionPerformed;
+        playerInputActions.Player.Move.canceled += MoveActionCancelled;
+        playerInputActions.Player.Jump.started += JumpActionPerformed;
+        playerInputActions.Player.Jump.canceled += JumpActionCancelled;
     }
 
     private void UnsubscribeInputActions()
     {
         playerInputActions.Player.Move.started -= MoveActionPerformed;
+        playerInputActions.Player.Move.canceled -= MoveActionCancelled;
+        playerInputActions.Player.Jump.started -= JumpActionPerformed;
+        playerInputActions.Player.Jump.canceled -= JumpActionCancelled;
     }
 
     void Awake()
@@ -71,6 +77,24 @@ public class PlayerController : MonoBehaviour
 
         // move player
         characterMovement.Move(cameraAdjustedInputDirection);
+    }
+
+    private void JumpActionPerformed(InputAction.CallbackContext context)
+    {
+        // jump
+        characterMovement.Jump();
+    }
+
+    private void MoveActionCancelled(InputAction.CallbackContext context)
+    {
+        // cancel movement
+        characterMovement.Move(Vector3.zero);
+    }
+
+    private void JumpActionCancelled(InputAction.CallbackContext context)
+    {
+        // cancel jump
+        characterMovement.JumpCanceled();
     }
 
     private void CalculateCameraRelativeInput()

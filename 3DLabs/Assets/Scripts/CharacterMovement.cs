@@ -4,6 +4,18 @@ using UnityEngine;
 
 public class CharacterMovement : BaseMovement
 {
+    [Header("Components/Objects")]
+
+    [Tooltip("The Rigidbody of the character")]
+    [SerializeField] private Rigidbody characterRigidbody;
+
+    [Tooltip("The capsule collider of the character")]
+    [SerializeField] private CapsuleCollider characterCollider;
+
+    [Tooltip("The transform of the character model associated with the " +
+        "character")]
+    [SerializeField] private Transform characterModel;
+
     [Header("Ground Movement")]
     [Tooltip("The speed that this character accelerates at")]
     [SerializeField] float moveAcceleration = 60f;
@@ -11,13 +23,37 @@ public class CharacterMovement : BaseMovement
     [Tooltip("The current max speed of this character")]
     [SerializeField] private float moveSpeed = 7f;
 
-    [Tooltip("The friction decceleration of this character")]
-    [SerializeField] private float friction = 60f;
+    [Tooltip("The speed to interpolate rotation at")]
+    [SerializeField] private float rotationSpeed = 5f;
 
-    [SerializeField] private Vector3 cameraAdjustedInputDirection;
+    [Tooltip("The layer mask to treat as ground")]
+    [SerializeField] private LayerMask groundLayerMask;
 
-    [Tooltip("The Rigidbody of the character")]
-    [SerializeField] private Rigidbody characterRigidbody;
+    [Tooltip("The distance from the bottom of the character to check for " +
+        "ground at")]
+    [SerializeField] private float groundCheckDistance = 0.1f;
+
+    [Header("Jumping")]
+    [Tooltip("The force to apply when jumping")]
+    [SerializeField] private float jumpForce = 5f;
+
+    [Tooltip("Multiplier for airbone horizontal movement")]
+    [SerializeField] private float airControlMultiplier = 1f;
+
+    [Tooltip("The maximum vertical speed")]
+    [SerializeField] private float maxVerticalMoveSpeed = 25f;
+
+    private Vector3 cameraAdjustedInputDirection;
+
+    /// <summary>
+    /// Whether the character is on the ground
+    /// </summary>
+    private bool isGrounded;
+
+    /// <summary>
+    /// Whether the character was on the ground last frame
+    /// </summary>
+    private bool wasGroundedLastFrame;
 
     // called by fixed update
     private void MoveCharacter()
@@ -26,38 +62,71 @@ public class CharacterMovement : BaseMovement
         if (cameraAdjustedInputDirection != Vector3.zero)
         {
             // apply force to character to create movement
-            characterRigidbody.AddForce(cameraAdjustedInputDirection *
-                moveAcceleration * characterRigidbody.mass, ForceMode.Force);
-        }
-        else
-        {
-            // slow down
-            if (!Mathf.Approximately(characterRigidbody.velocity.sqrMagnitude,
-                0f))
+            if (isGrounded)
             {
-                float slowdown = Mathf.Min(
-                    characterRigidbody.velocity.sqrMagnitude, friction);
-
+                characterRigidbody.AddForce(characterRigidbody.mass *
+                    moveAcceleration * cameraAdjustedInputDirection,
+                    ForceMode.Force);
+            }
+            else
+            {
+                characterRigidbody.AddForce(airControlMultiplier *
+                    characterRigidbody.mass * moveAcceleration *
+                    cameraAdjustedInputDirection, ForceMode.Force);
             }
         }
     }
 
-    private void CapSpeed()
+    private Vector3 GetHorizontalRBVelocity()
     {
-        // get difference from max speed
-        float speedDiff = moveSpeed -
-            Mathf.Abs(characterRigidbody.velocity.sqrMagnitude);
-        if (speedDiff <= 0)
+        return new Vector3(characterRigidbody.velocity.x, 0,
+            characterRigidbody.velocity.z);
+    }
+
+    private float getMaxVelocity()
+    {
+        return moveSpeed * cameraAdjustedInputDirection.magnitude;
+    }
+
+    private void LimitVelocity()
+    {
+        Vector3 currentVelocity = GetHorizontalRBVelocity();
+
+        float maxAllowedVelocity = getMaxVelocity();
+
+        if (currentVelocity.sqrMagnitude > (maxAllowedVelocity *
+            maxAllowedVelocity))
         {
-            // calculate direction
-            Vector3 dir = new Vector3(
-                Mathf.Sign(characterRigidbody.velocity.x),
-                Mathf.Sign(characterRigidbody.velocity.y),
-                Mathf.Sign(characterRigidbody.velocity.z));
-            // kill excess speed
-            characterRigidbody.AddForce(speedDiff * characterRigidbody.mass *
-            -dir, ForceMode.Impulse);
+            Vector3 counteractDirection = currentVelocity.normalized * -1f;
+            float counteractAmount = currentVelocity.magnitude -
+                maxAllowedVelocity;
+            characterRigidbody.AddForce(characterRigidbody.mass *
+                counteractAmount * counteractDirection, ForceMode.Impulse);
         }
+
+        if (!isGrounded)
+        {
+            if (Mathf.Abs(characterRigidbody.velocity.y) > maxVerticalMoveSpeed)
+            {
+                Vector3 counteractDirection = -1f *
+                    Mathf.Sign(characterRigidbody.velocity.y) * Vector3.up;
+                float counteractAmount = Mathf.Abs(
+                    characterRigidbody.velocity.y) - maxVerticalMoveSpeed;
+                characterRigidbody.AddForce(characterRigidbody.mass *
+                    counteractAmount * counteractDirection, ForceMode.Impulse);
+            }
+        }
+    }
+
+    private void CheckGrounded()
+    {
+        wasGroundedLastFrame = isGrounded;
+        Vector3 overlapSphereOrigin = transform.position + (Vector3.up *
+            (characterCollider.radius - groundCheckDistance));
+        Collider[] overlappedColliders = Physics.OverlapSphere(
+            overlapSphereOrigin, characterCollider.radius * 0.95f,
+            groundLayerMask, QueryTriggerInteraction.Ignore);
+        isGrounded = (overlappedColliders.Length > 0);
     }
 
     #region BaseMovement Functions
@@ -71,19 +140,30 @@ public class CharacterMovement : BaseMovement
         if (cameraAdjustedInputDirection != Vector3.zero)
         {
             // face in movement dir
-            transform.rotation =
-                Quaternion.LookRotation(cameraAdjustedInputDirection);
+            characterModel.forward =
+                Vector3.Slerp(characterModel.forward,
+                cameraAdjustedInputDirection.normalized,
+                Time.deltaTime * rotationSpeed);
         }
     }
 
     override public void Jump()
     {
-        throw new System.NotImplementedException();
+        // make sure jump is being performed while grounded
+        if (isGrounded)
+        {
+            // calculate adjusted jump force
+            float jumpImpulse = jumpForce * characterRigidbody.mass;
+
+            // perform jump
+            characterRigidbody.AddForce(Vector3.up * jumpImpulse,
+                ForceMode.Impulse);
+        }
     }
 
     override public void JumpCanceled()
     {
-        throw new System.NotImplementedException();
+
     }
     #endregion
     #region Unity Functions
@@ -101,14 +181,19 @@ public class CharacterMovement : BaseMovement
 
     override protected void FixedUpdate()
     {
+
+        // check if grounded
+        CheckGrounded();
+
         // move
         MoveCharacter();
+
+        // cap velocity
+        LimitVelocity();
 
         // update rotation
         RotateCharacter();
 
-        // cap movement speed
-        CapSpeed();
     }
     #endregion
 }

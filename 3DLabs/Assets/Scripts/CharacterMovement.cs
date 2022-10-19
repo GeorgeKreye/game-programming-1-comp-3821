@@ -12,6 +12,10 @@ public class CharacterMovement : BaseMovement
     [Tooltip("The capsule collider of the character")]
     [SerializeField] private CapsuleCollider characterCollider;
 
+    [Tooltip("The Animator used on the character model associated with the " +
+        "character")]
+    [SerializeField] private Animator animator;
+
     [Tooltip("The transform of the character model associated with the " +
         "character")]
     [SerializeField] private Transform characterModel;
@@ -202,6 +206,13 @@ public class CharacterMovement : BaseMovement
         return result;
     }
 
+    private void GroundAnimation()
+    {
+        // get magniude and send to animator component
+        float magnitude = GetHorizontalRBVelocity().magnitude;
+        animator.SetFloat("HorizontalSpeed", magnitude);
+    }
+
     #region BaseMovement Functions
     override public void Move(Vector3 moveDir)
     {
@@ -263,6 +274,9 @@ public class CharacterMovement : BaseMovement
 
         // cap velocity
         LimitVelocity();
+
+        // update ground animation
+        GroundAnimation();
 
         // update rotation
         RotateCharacter();

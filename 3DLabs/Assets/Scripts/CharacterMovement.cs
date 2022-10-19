@@ -33,6 +33,13 @@ public class CharacterMovement : BaseMovement
         "ground at")]
     [SerializeField] private float groundCheckDistance = 0.1f;
 
+    [Tooltip("The distance from the front of the character to check for " +
+        "slopes at")]
+    [SerializeField] private float slopeCheckDistance;
+
+    [Tooltip("The maximum slope height that the player can climb")]
+    [SerializeField] private float maxSlopeHeight = 0.25f;
+
     [Header("Jumping")]
     [Tooltip("The force to apply when jumping")]
     [SerializeField] private float jumpForce = 5f;
@@ -64,9 +71,23 @@ public class CharacterMovement : BaseMovement
             // apply force to character to create movement
             if (isGrounded)
             {
-                characterRigidbody.AddForce(characterRigidbody.mass *
-                    moveAcceleration * cameraAdjustedInputDirection,
-                    ForceMode.Force);
+                // check for slope
+                if (ClimbableSlope())
+                {
+                    Vector3 slopeAdjustedInputDirection = new Vector3(
+                        cameraAdjustedInputDirection.x,
+                        cameraAdjustedInputDirection.y + maxSlopeHeight,
+                        cameraAdjustedInputDirection.z);
+                    characterRigidbody.AddForce(characterRigidbody.mass *
+                        moveAcceleration * slopeAdjustedInputDirection,
+                        ForceMode.Force);
+                }
+                else
+                {
+                    characterRigidbody.AddForce(characterRigidbody.mass *
+                        moveAcceleration * cameraAdjustedInputDirection,
+                        ForceMode.Force);
+                }
             }
             else
             {
@@ -127,6 +148,58 @@ public class CharacterMovement : BaseMovement
             overlapSphereOrigin, characterCollider.radius * 0.95f,
             groundLayerMask, QueryTriggerInteraction.Ignore);
         isGrounded = (overlappedColliders.Length > 0);
+    }
+
+    private bool ClimbableSlope()
+    {
+        bool result = false;
+
+        // check if against an object
+        bool collisionCastHitF = Physics.Raycast(transform.position,
+            Vector3.forward, characterCollider.radius + slopeCheckDistance);
+        bool collisionCastHitL = Physics.Raycast(transform.position,
+            Vector3.left, characterCollider.radius + slopeCheckDistance);
+        bool collisionCastHitR = Physics.Raycast(transform.position,
+            Vector3.right, characterCollider.radius + slopeCheckDistance);
+        bool collisionCastHitB = Physics.Raycast(transform.position,
+            Vector3.back, characterCollider.radius + slopeCheckDistance);
+
+        // return if not against an object
+        if (!collisionCastHitF && !collisionCastHitL && !collisionCastHitR &&
+            !collisionCastHitB)
+        {
+            return result;
+        }
+
+        // check if climbable slope
+        Vector3 maxHeightCastOrigin = new Vector3(transform.position.x,
+            transform.position.y + maxSlopeHeight + 0.01f,
+            transform.position.z);
+        bool maxHeightCastHit = false;
+        if (collisionCastHitF) // forward
+        {
+            maxHeightCastHit = Physics.Raycast(maxHeightCastOrigin,
+                Vector3.forward, characterCollider.radius + slopeCheckDistance);
+        }
+        else if (collisionCastHitL) // left
+        {
+            maxHeightCastHit = Physics.Raycast(maxHeightCastOrigin,
+                Vector3.left, characterCollider.radius + slopeCheckDistance);
+        }
+        else if (collisionCastHitR) // right
+        {
+            maxHeightCastHit = Physics.Raycast(maxHeightCastOrigin,
+                Vector3.right, characterCollider.radius + slopeCheckDistance);
+        }
+        else if (collisionCastHitB) // backward
+        {
+            maxHeightCastHit = Physics.Raycast(maxHeightCastOrigin,
+                Vector3.back, characterCollider.radius + slopeCheckDistance);
+        }
+        result = !maxHeightCastHit;
+
+        // return
+        return result;
     }
 
     #region BaseMovement Functions

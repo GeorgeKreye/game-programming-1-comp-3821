@@ -728,6 +728,7 @@ GameObject:
   - component: {fileID: 323669724}
   - component: {fileID: 323669723}
   - component: {fileID: 323669722}
+  - component: {fileID: 323669726}
   m_Layer: 3
   m_Name: Prism
   m_TagString: Untagged
@@ -1007,6 +1008,20 @@ MonoBehaviour:
     RefIds:
     - rid: 4849641583179726872
       type: {class: Prism, ns: UnityEngine.ProBuilder.Shapes, asm: Unity.ProBuilder}
+--- !u!64 &323669726
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323669720}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2086996538}
 --- !u!43 &430411222
 Mesh:
   m_ObjectHideFlags: 0
@@ -13473,7 +13488,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &614230952
 GameObject:
@@ -14959,7 +14974,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &645784335
 GameObject:
@@ -15001,7 +15016,7 @@ Transform:
   - {fileID: 486953005}
   - {fileID: 1254558762}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &680770024
 Mesh:
@@ -15707,9 +15722,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1879268930}
   - {fileID: 1875719465}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &863462629
 MonoBehaviour:
@@ -15727,7 +15743,7 @@ MonoBehaviour:
   cameraAdjustedInputDirection: {x: 0, y: 0, z: 0}
   cameraTransform: {fileID: 1879268930}
   cameraOrientation: {fileID: 1879268930}
-  characterMovement: {fileID: 0}
+  characterMovement: {fileID: 863462632}
 --- !u!136 &863462630
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -15756,8 +15772,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Constraints: 112
+  m_CollisionDetection: 1
 --- !u!114 &863462632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15770,17 +15786,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8906220cbec9145f58db280aa25a3fcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterRigidbody: {fileID: 863462631}
+  characterCollider: {fileID: 863462630}
+  characterModel: {fileID: 1875719465}
   moveAcceleration: 60
   moveSpeed: 7
-  friction: 60
-  rotationSpeed: 0
-  cameraAdjustedInputDirection: {x: 0, y: 0, z: 0}
-  characterRigidbody: {fileID: 863462631}
-  jumpForce: 0
-  characterCollider: {fileID: 863462630}
+  rotationSpeed: 5
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 8
+  groundCheckDistance: 0.1
+  jumpForce: 5
+  airControlMultiplier: 1
+  maxVerticalMoveSpeed: 25
 --- !u!1 &884152774
 GameObject:
   m_ObjectHideFlags: 0
@@ -24619,7 +24637,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 105
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -24644,12 +24662,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1879268927}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -0.75}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.832, z: -0.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 863462628}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1879268931

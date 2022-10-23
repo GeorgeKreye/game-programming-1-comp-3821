@@ -110,6 +110,11 @@ public class PlayerController : MonoBehaviour
             cameraAdjustedInputDirection =
                 cameraAdjustedInputDirection.normalized;
         }
+
+        // horizontalize
+        cameraAdjustedInputDirection = new Vector3(
+            cameraAdjustedInputDirection.x,
+            0,cameraAdjustedInputDirection.z);
     }
 
     private void SwitchActionMap(string mapName)

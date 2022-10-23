@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterMovement : BaseMovement
+public class CharacterMovementAnimated : BaseMovement
 {
     [Header("Components/Objects")]
 
@@ -66,6 +66,11 @@ public class CharacterMovement : BaseMovement
     /// </summary>
     private bool wasGroundedLastFrame;
 
+    /// <summary>
+    /// Whether the character is falling down
+    /// </summary>
+    private bool isFalling;
+
     // called by fixed update
     private void MoveCharacter()
     {
@@ -78,7 +83,7 @@ public class CharacterMovement : BaseMovement
                 // check for slope
                 if (ClimbableSlope())
                 {
-                    Vector3 slopeAdjustedInputDirection = new Vector3(
+                    Vector3 slopeAdjustedInputDirection = new(
                         cameraAdjustedInputDirection.x,
                         cameraAdjustedInputDirection.y + maxSlopeHeight,
                         cameraAdjustedInputDirection.z);
@@ -145,13 +150,19 @@ public class CharacterMovement : BaseMovement
 
     private void CheckGrounded()
     {
+        // cache last frame grounded state
         wasGroundedLastFrame = isGrounded;
+
+        // check if grounded
         Vector3 overlapSphereOrigin = transform.position + (Vector3.up *
             (characterCollider.radius - groundCheckDistance));
         Collider[] overlappedColliders = Physics.OverlapSphere(
             overlapSphereOrigin, characterCollider.radius * 0.95f,
             groundLayerMask, QueryTriggerInteraction.Ignore);
         isGrounded = (overlappedColliders.Length > 0);
+
+        // update animation
+        animator.SetBool("Grounded", isGrounded);
     }
 
     private bool ClimbableSlope()
@@ -167,24 +178,6 @@ public class CharacterMovement : BaseMovement
             Vector3.right, characterCollider.radius + slopeCheckDistance);
         bool collisionCastHitB = Physics.Raycast(transform.position,
             Vector3.back, characterCollider.radius + slopeCheckDistance);
-
-        // bottom castlines for debug
-        Vector3 endF = new(transform.position.x +
-            characterCollider.radius + slopeCheckDistance, transform.position.y,
-            transform.position.z);
-        Vector3 endL = new(transform.position.x,transform.position.y,
-            transform.position.z - (characterCollider.radius +
-            slopeCheckDistance));
-        Vector3 endR = new(transform.position.x, transform.position.y,
-            transform.position.z + characterCollider.radius +
-            slopeCheckDistance);
-        Vector3 endB = new(transform.position.x -
-            (characterCollider.radius + slopeCheckDistance),
-            transform.position.y, transform.position.z);
-        Debug.DrawLine(transform.position, endF, Color.red);
-        Debug.DrawLine(transform.position, endL, Color.red);
-        Debug.DrawLine(transform.position, endR, Color.red);
-        Debug.DrawLine(transform.position, endB, Color.red);
 
         // return if not against an object
         if (!collisionCastHitF && !collisionCastHitL && !collisionCastHitR &&
@@ -224,6 +217,19 @@ public class CharacterMovement : BaseMovement
         return result;
     }
 
+    private void GroundAnimation()
+    {
+        // get magniude and send to animator component
+        float magnitude = GetHorizontalRBVelocity().magnitude;
+        animator.SetFloat("HorizontalSpeed", magnitude);
+    }
+
+    private void CheckFalling()
+    {
+        isFalling = (!isGrounded && characterRigidbody.velocity.y < 0.1);
+        animator.SetBool("Falling", isFalling);
+    }
+
     #region BaseMovement Functions
     override public void Move(Vector3 moveDir)
     {
@@ -253,6 +259,9 @@ public class CharacterMovement : BaseMovement
             // perform jump
             characterRigidbody.AddForce(Vector3.up * jumpImpulse,
                 ForceMode.Impulse);
+
+            // send jump to animator component
+            animator.SetTrigger("Jump");
         }
     }
 
@@ -280,11 +289,17 @@ public class CharacterMovement : BaseMovement
         // check if grounded
         CheckGrounded();
 
+        // check if falling
+        CheckFalling();
+
         // move
         MoveCharacter();
 
         // cap velocity
         LimitVelocity();
+
+        // update ground animation
+        GroundAnimation();
 
         // update rotation
         RotateCharacter();

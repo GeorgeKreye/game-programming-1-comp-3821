@@ -221,7 +221,7 @@ public class CharacterMovement : BaseMovement
     {
         // get magniude and send to animator component
         float magnitude = GetHorizontalRBVelocity().magnitude;
-        animator.SetFloat("HorizontalSpeed", magnitude);
+        animator.SetFloat("Horizontal Speed", magnitude);
     }
 
     private void CheckFalling()

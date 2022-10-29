@@ -7,21 +7,31 @@ public class CharacterController : MonoBehaviour
 {
 
     [Header("Player Input")]
-    [Tooltip("The movmement input from the player")]
+    [Tooltip("The movmement input from the player (read-only)")]
     [SerializeField] private Vector2 movementInput;
 
     // reference to our input actions object
     private CharacterInput input;
 
-    [Tooltip("The movement input that's aligned with the camera direction")]
+    [Tooltip("The movement input that's aligned with the camera direction " +
+        "(read-only)")]
     [SerializeField] private Vector3 cameraAdjustedInputDirection;
 
     [Header("Camera")]
-    [SerializeField] private Transform cameraTransform;
-    [SerializeField] private Transform cameraOrientation;
+    [Tooltip("The possible Virtual Cameras to use")]
+    [SerializeField] private GameObject[] cameras;
+    [Tooltip("The index of the Virtual Camera to start with; defaults to 0")]
+    [SerializeField] private int startingCamera = 0;
 
+    /// <summary>
+    /// The index of the current camera
+    /// </summary>
+    private int currentCamera;
+    private Transform cameraTransform;
+    private Transform cameraOrientation;
 
     [Header("Component/Object referece")]
+    [Tooltip("The BaseMovement component to send movement input to")]
     [SerializeField] private BaseMovement characterMovement;
 
     private void SubscribeInputActions()
@@ -30,6 +40,7 @@ public class CharacterController : MonoBehaviour
         input.Player.Move.canceled += MoveActionCancelled;
         input.Player.Jump.started += JumpActionPerformed;
         input.Player.Jump.canceled += JumpActionCancelled;
+        input.Player.Camera.performed += CameraActionPerformed;
     }
 
     private void UnsubscribeInputActions()
@@ -38,6 +49,7 @@ public class CharacterController : MonoBehaviour
         input.Player.Move.canceled -= MoveActionCancelled;
         input.Player.Jump.started -= JumpActionPerformed;
         input.Player.Jump.canceled -= JumpActionCancelled;
+        input.Player.Camera.performed -= CameraActionPerformed;
     }
 
     void Awake()
@@ -48,12 +60,28 @@ public class CharacterController : MonoBehaviour
 
         // start with player action map
         SwitchActionMap("Player");
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        // set initial camera
+        currentCamera = startingCamera;
+        cameras[currentCamera].SetActive(true);
 
+        // deactivate any other cameras
+        for (int i = 1; i < cameras.Length; i++)
+        {
+            if (i != currentCamera)
+            {
+                cameras[currentCamera].SetActive(false);
+            }
+        }
+
+        // set transform references
+        cameraTransform = cameras[currentCamera].transform;
+        cameraOrientation = cameras[currentCamera].transform;
     }
 
     // Update is called once per frame
@@ -95,6 +123,20 @@ public class CharacterController : MonoBehaviour
     {
         // cancel jump
         characterMovement.JumpCanceled();
+    }
+
+    private void CameraActionPerformed(InputAction.CallbackContext context)
+    {
+        // turn off old camera
+        cameras[currentCamera].SetActive(false);
+
+        // turn on new camera
+        currentCamera = (currentCamera + 1) % cameras.Length;
+        cameras[currentCamera].SetActive(true);
+
+        // update transform references
+        cameraTransform = cameras[currentCamera].transform;
+        cameraOrientation = cameras[currentCamera].transform;
     }
 
     private void CalculateCameraRelativeInput()

@@ -66,18 +66,15 @@ public class CharacterController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // set initial camera
-        currentCamera = startingCamera;
-        cameras[currentCamera].SetActive(true);
-
-        // deactivate any other cameras
+        // deactivate cameras
         for (int i = 1; i < cameras.Length; i++)
         {
-            if (i != currentCamera)
-            {
-                cameras[currentCamera].SetActive(false);
-            }
+            cameras[currentCamera].SetActive(false);
         }
+
+        // activate initial camera
+        currentCamera = startingCamera;
+        cameras[currentCamera].SetActive(true);
 
         // set transform references
         cameraTransform = cameras[currentCamera].transform;

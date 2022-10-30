@@ -27,8 +27,10 @@ public class CharacterController : MonoBehaviour
     /// The index of the current camera
     /// </summary>
     private int currentCamera;
-    private Transform cameraTransform;
-    private Transform cameraOrientation;
+
+
+    [SerializeField] private Transform cameraTransform;
+    [SerializeField] private Transform cameraOrientation;
 
     [Header("Component/Object referece")]
     [Tooltip("The BaseMovement component to send movement input to")]
@@ -75,10 +77,6 @@ public class CharacterController : MonoBehaviour
         // activate initial camera
         currentCamera = startingCamera;
         cameras[currentCamera].SetActive(true);
-
-        // set transform references
-        cameraTransform = cameras[currentCamera].transform;
-        cameraOrientation = cameras[currentCamera].transform;
     }
 
     // Update is called once per frame
@@ -96,6 +94,8 @@ public class CharacterController : MonoBehaviour
     {
         // get movement
         movementInput = context.ReadValue<Vector2>();
+
+        Debug.Log("Movement: " + movementInput);
 
         // get camera relative movement
         CalculateCameraRelativeInput();
@@ -132,10 +132,6 @@ public class CharacterController : MonoBehaviour
         // turn on new camera
         currentCamera = (currentCamera + 1) % cameras.Length;
         cameras[currentCamera].SetActive(true);
-
-        // update transform references
-        cameraTransform = cameras[currentCamera].transform;
-        cameraOrientation = cameras[currentCamera].transform;
     }
 
     private void CalculateCameraRelativeInput()

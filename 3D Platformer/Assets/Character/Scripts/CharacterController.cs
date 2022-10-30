@@ -100,6 +100,8 @@ public class CharacterController : MonoBehaviour
         // get camera relative movement
         CalculateCameraRelativeInput();
 
+        Debug.Log("Movement: " + cameraAdjustedInputDirection);
+
         // move player
         characterMovement.Move(cameraAdjustedInputDirection);
     }

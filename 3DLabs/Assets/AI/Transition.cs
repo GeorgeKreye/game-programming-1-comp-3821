@@ -12,5 +12,5 @@ public class Transition
     public Decision decision;
 
     [Tooltip("The next state to transition to")]
-    public StateMachineBehaviour nextState;
+    public AIState nextState;
 }

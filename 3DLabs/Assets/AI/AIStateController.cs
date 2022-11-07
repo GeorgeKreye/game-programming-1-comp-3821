@@ -19,6 +19,14 @@ public class AIStateController : MonoBehaviour
     public NavMeshAgent agent;
     [Tooltip("The position to use as the 'home' waypoint")]
     public Transform homeWaypoint;
+    [Tooltip("Position to use as eye level")]
+    public Transform AIEyes;
+    [Tooltip("Maximum visual distance")]
+    public float lookRadius;
+    [Tooltip("Maximum visual range")]
+    public float lookRange;
+    [Tooltip("Target object for tracking (usualy the player)")]
+    public Transform chaseTarget;
 
 
     #region Unity Functions

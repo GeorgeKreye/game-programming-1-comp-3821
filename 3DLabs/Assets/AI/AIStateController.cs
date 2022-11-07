@@ -14,9 +14,12 @@ public class AIStateController : MonoBehaviour
     [Tooltip("Whehter this FSM is active")]
     public bool isActive;
 
-    [Header("Navigation")]
+    [Header("Blackboard")]
     [Tooltip("The NavMeshAgent used by this controller")]
-    [SerializeField] private NavMeshAgent agent;
+    public NavMeshAgent agent;
+    [Tooltip("The position to use as the 'home' waypoint")]
+    public Transform homeWaypoint;
+
 
     #region Unity Functions
     // Awake is called when the script instance is being loaded
@@ -42,6 +45,7 @@ public class AIStateController : MonoBehaviour
         }
     }
     #endregion
+
     /// <summary>
     /// Sets up the FSM
     /// </summary>

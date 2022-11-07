@@ -19,24 +19,27 @@ public class LookDecision : Decision
     }
 
     /// <summary>
-    /// Checks whether an AI can see the player
+    /// Checks whether an AI can see a target object (usually the player)
     /// </summary>
     /// <param name="controller">
     /// The AI state controller referencing this decision
     /// </param>
     /// <returns>
-    /// Whether the AI can see the player object
+    /// Whether the AI can see a target object
     /// </returns>
     private bool Look(AIStateController controller)
     {
+        // Make raycast
         RaycastHit hit;
-        Collider[] colliders;
         if (Physics.SphereCast(controller.AIEyes.position,
             controller.lookRadius, controller.AIEyes.forward, out hit,
             controller.lookRange, characterLayerMask,
             QueryTriggerInteraction.Ignore))
         {
-
+            // Set as target and return hit
+            controller.chaseTarget = hit.transform;
+            return true;
         }
+        return false; // No raycast hit
     }
 }

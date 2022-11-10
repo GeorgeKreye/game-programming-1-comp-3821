@@ -27,6 +27,10 @@ public class AIStateController : MonoBehaviour
     public float lookRange;
     [Tooltip("Target object for tracking (usualy the player)")]
     public Transform chaseTarget;
+    [Tooltip("Maximum radius when wandering")]
+    public float wanderRadius;
+    [Tooltip("Timer for waiting")]
+    public float timer = 0f;
 
 
     #region Unity Functions
@@ -41,16 +45,21 @@ public class AIStateController : MonoBehaviour
     void Start()
     {
 
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        // call update actions
         if (isActive)
         {
             // Update current state
             currentState.UpdateState(this);
         }
+
+        // update timer
+        timer += Time.deltaTime;
     }
     #endregion
 
@@ -59,7 +68,9 @@ public class AIStateController : MonoBehaviour
     /// </summary>
     public void Setup()
     {
-
+        // Make sure home waypoint is on the navigation mesh
+        NavMeshHit hit;
+        NavMesh.SamplePosition(homeWaypoint.position,out hit, 10f,0);
     }
 
     /// <summary>
@@ -79,8 +90,21 @@ public class AIStateController : MonoBehaviour
             // Change current state to new state
             currentState = newState;
 
+            // Reset timer
+            timer = 0f;
+
             // Perform enter actions of new state
             currentState.EnterState(this);
+
+            
         }
+
+
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(AIEyes.position,AIEyes.position + AIEyes.forward * lookRange);
     }
 }

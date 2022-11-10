@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e6428ca01aec645de9d854c36f3a8789, type: 3}
-  m_Name: Go Home
+  m_Name: ChasePlayer
   m_EditorClassIdentifier: 
   enterActions: []
   exitActions: []
   updateActions:
-  - {fileID: 11400000, guid: fef8eb9be93594452b404806a3b2ac4b, type: 2}
+  - {fileID: 11400000, guid: 3ad27538f013e488f9b307f97c3fbd17, type: 2}
   transitions:
-  - decision: {fileID: 11400000, guid: d4b4135d0a9c04d88aa0a4e3bddc8392, type: 2}
-    nextState: {fileID: 11400000, guid: 096f9c4df54034ec580de0eaee59ddc9, type: 2}
+  - decision: {fileID: 11400000, guid: a2181be2fbfa448e580cb64f26bbb9d6, type: 2}
+    nextState: {fileID: 11400000, guid: aba8800dbead2467d93279713c5bd355, type: 2}

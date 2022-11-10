@@ -25,7 +25,7 @@ public class GoHomeAction : Action
     private void GoHome(AIStateController controller)
     {
         // Set destination and begin movement
-        controller.agent.destination = controller.homeWaypoint.position;
+        controller.agent.SetDestination(controller.homeWaypoint.position);
         controller.agent.isStopped = false;
     }
 }

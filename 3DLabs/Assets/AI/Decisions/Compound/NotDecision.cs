@@ -9,11 +9,17 @@ using UnityEngine;
     fileName = "Not")]
 public class NotDecision : Decision
 {
-    [Tooltip("The Decision to invert")]
+    [Tooltip("The decision to invert")]
     [SerializeField] private Decision decision;
 
     public override bool Decide(AIStateController controller)
     {
+        // return true if decision is empty
+        if (decision.Equals(null))
+        {
+            return true;
+        }
+
         // return opposite of decision result
         return !decision.Decide(controller);
     }

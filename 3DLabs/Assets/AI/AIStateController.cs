@@ -95,8 +95,6 @@ public class AIStateController : MonoBehaviour
 
             // Perform enter actions of new state
             currentState.EnterState(this);
-
-            
         }
 
 

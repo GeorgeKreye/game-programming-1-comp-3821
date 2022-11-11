@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Component/Object referece")]
     [SerializeField] private BaseMovement characterMovement;
+    [SerializeField] private PlayerInteractManager interactManager;
 
     private void SubscribeInputActions()
     {
@@ -30,6 +31,7 @@ public class PlayerController : MonoBehaviour
         playerInputActions.Player.Move.canceled += MoveActionCancelled;
         playerInputActions.Player.Jump.started += JumpActionPerformed;
         playerInputActions.Player.Jump.canceled += JumpActionCancelled;
+        playerInputActions.Player.Interact.performed += InteractActionPerformed;
     }
 
     private void UnsubscribeInputActions()
@@ -38,6 +40,7 @@ public class PlayerController : MonoBehaviour
         playerInputActions.Player.Move.canceled -= MoveActionCancelled;
         playerInputActions.Player.Jump.started -= JumpActionPerformed;
         playerInputActions.Player.Jump.canceled -= JumpActionCancelled;
+        playerInputActions.Player.Interact.performed -= InteractActionPerformed;
     }
 
     void Awake()
@@ -95,6 +98,12 @@ public class PlayerController : MonoBehaviour
     {
         // cancel jump
         characterMovement.JumpCanceled();
+    }
+
+    private void InteractActionPerformed(InputAction.CallbackContext context)
+    {
+        // interact
+        interactManager.Interact();
     }
 
     private void CalculateCameraRelativeInput()

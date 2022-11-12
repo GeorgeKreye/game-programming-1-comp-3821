@@ -21,18 +21,26 @@ public class AIStateController : MonoBehaviour
     public Transform homeWaypoint;
     [Tooltip("Position to use as eye level")]
     public Transform AIEyes;
-    [Tooltip("Maximum visual distance")]
-    public float lookRadius;
+    [Tooltip("Maximum visual distance off of a sightline")]
+    public float lookRadius = 5f;
     [Tooltip("Maximum visual range")]
-    public float lookRange;
+    public float lookRange = 10f;
     [Tooltip("Target object for tracking (usualy the player)")]
     public Transform chaseTarget;
     [Tooltip("Maximum radius when wandering")]
-    public float wanderRadius;
+    public float wanderRadius = 30f;
+    [Tooltip("Whether to calculate a new wander target")]
+    public bool wanderRestart = true;
     [Tooltip("Timer for waiting")]
     public float timer = 0f;
     [Tooltip("Positions to use for patrolling")]
     public Transform[] patrolWaypoints;
+    [Tooltip("The current patrol waypoint")]
+    public int currentPWaypoint = 0;
+    [Tooltip("The maximum radius to check for NavMesh hits in")]
+    public float checkRadius = 10f;
+    [Tooltip("The duration of the pause between patrol segments")]
+    public float patrolPauseDuration = 30f;
 
 
     #region Unity Functions
@@ -70,10 +78,28 @@ public class AIStateController : MonoBehaviour
     /// </summary>
     public void Setup()
     {
-        // Make sure home waypoint is on the navigation mesh
-        NavMeshHit hit;
-        NavMesh.SamplePosition(homeWaypoint.position, out hit, 10f, 0);
-        homeWaypoint.position = hit.position;
+        if (agent != null)
+        {
+            // Hit container
+            NavMeshHit hit;
+
+            // Make sure home waypoint is on the navigation mesh
+            if (homeWaypoint != null)
+            {
+                NavMesh.SamplePosition(homeWaypoint.position, out hit, 10f, 0);
+                homeWaypoint.position = hit.position;
+            }
+
+            // Make sure patrol waypoints are on the navigation mesh
+            if (patrolWaypoints.Length > 0)
+            {
+                foreach (Transform waypoint in patrolWaypoints)
+                {
+                    NavMesh.SamplePosition(waypoint.position, out hit, checkRadius, 0);
+                    waypoint.position = hit.position;
+                }
+            }
+        }
     }
 
     /// <summary>
@@ -105,7 +131,12 @@ public class AIStateController : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(AIEyes.position, AIEyes.position + AIEyes.forward * lookRange);
+        if (AIEyes != null)
+        {
+            // Draw sightlines
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(AIEyes.position, AIEyes.position + AIEyes.forward * lookRange);
+            Gizmos.DrawSphere(AIEyes.position + AIEyes.forward * lookRange, lookRadius);
+        }
     }
 }

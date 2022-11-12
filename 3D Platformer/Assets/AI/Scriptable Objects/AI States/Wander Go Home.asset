@@ -10,9 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1cbc527b8cddd4ecfa6dd053420ec9f9, type: 3}
-  m_Name: Go Home
+  m_Name: Wander Go Home
   m_EditorClassIdentifier: 
   enterActions: []
   exitActions: []
   updateActions: []
-  transitions: []
+  transitions:
+  - decision: {fileID: 0}
+    nextState: {fileID: 11400000, guid: 3d45927feecc345f1a88d3684e25feb8, type: 2}

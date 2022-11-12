@@ -18,11 +18,18 @@ public class WanderAction : Action
     // Performs action
     public override void Act(AIStateController controller)
     {
-        // Update target position if at target positon or restarting
+        // Update target position if at target positon or (re)starting
         if (controller.transform.position.Equals(target) ||
             controller.wanderRestart)
         {
+            // Update target
             UpdateTarget(controller);
+
+            // Pause if not (re)starting
+            if (!controller.wanderRestart)
+            {
+
+            }
         }
 
         // Move towards target position

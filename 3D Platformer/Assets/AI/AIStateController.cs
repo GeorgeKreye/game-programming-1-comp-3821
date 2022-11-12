@@ -8,12 +8,15 @@ using UnityEngine.AI;
 /// </summary>
 public class AIStateController : MonoBehaviour
 {
+    #region AI State
     [Header("State Control")]
     [Tooltip("The current state the FSM is in")]
     public AIState currentState;
     [Tooltip("Whehter this FSM is active")]
     public bool isActive;
+    #endregion
 
+    #region Blackboard Fields
     [Header("Blackboard")]
     [Tooltip("The NavMeshAgent used by this controller")]
     public NavMeshAgent agent;
@@ -41,6 +44,7 @@ public class AIStateController : MonoBehaviour
     public float checkRadius = 10f;
     [Tooltip("The duration of the pause between patrol segments")]
     public float patrolPauseDuration = 30f;
+    #endregion
 
 
     #region Unity Functions
@@ -78,6 +82,7 @@ public class AIStateController : MonoBehaviour
     /// </summary>
     public void Setup()
     {
+        // Don't adjust NavMesh if no agent is attached
         if (agent != null)
         {
             // Hit container
@@ -122,11 +127,12 @@ public class AIStateController : MonoBehaviour
             // Reset timer
             timer = 0f;
 
+            // Restart wander
+            wanderRestart = true;
+
             // Perform enter actions of new state
             currentState.EnterState(this);
         }
-
-
     }
 
     private void OnDrawGizmos()

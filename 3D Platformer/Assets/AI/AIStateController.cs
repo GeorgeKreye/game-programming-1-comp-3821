@@ -31,6 +31,8 @@ public class AIStateController : MonoBehaviour
     public float wanderRadius;
     [Tooltip("Timer for waiting")]
     public float timer = 0f;
+    [Tooltip("Positions to use for patrolling")]
+    public Transform[] patrolWaypoints;
 
 
     #region Unity Functions
@@ -71,6 +73,7 @@ public class AIStateController : MonoBehaviour
         // Make sure home waypoint is on the navigation mesh
         NavMeshHit hit;
         NavMesh.SamplePosition(homeWaypoint.position, out hit, 10f, 0);
+        homeWaypoint.position = hit.position;
     }
 
     /// <summary>

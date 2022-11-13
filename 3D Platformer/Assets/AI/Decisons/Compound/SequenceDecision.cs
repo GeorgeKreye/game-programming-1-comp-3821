@@ -5,6 +5,8 @@ using UnityEngine;
 /// <summary>
 /// Compound decision that acts as an 'and' in AI logic
 /// </summary>
+[CreateAssetMenu(menuName = "Pluggable AI/Decisions/Compound/Sequence",
+    fileName = "Sequence")]
 public class SequenceDecision : Decision
 {
     [Tooltip("The decisions to use")]

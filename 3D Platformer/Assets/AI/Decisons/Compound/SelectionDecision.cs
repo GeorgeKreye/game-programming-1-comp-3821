@@ -5,6 +5,8 @@ using UnityEngine;
 /// <summary>
 /// Compound decision that acts as an 'or' operation in AI logic
 /// </summary>
+[CreateAssetMenu (menuName = "Pluggable AI/Decisions/Compound/Selection",
+    fileName = "Selection")]
 public class SelectionDecision : Decision
 {
     [Tooltip("The decisions used in the compound decision")]

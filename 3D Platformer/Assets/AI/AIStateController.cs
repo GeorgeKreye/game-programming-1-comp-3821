@@ -24,7 +24,7 @@ public class AIStateController : MonoBehaviour
     public Transform homeWaypoint;
     [Tooltip("Position to use as eye level")]
     public Transform AIEyes;
-    [Tooltip("Maximum visual distance off of a sightline")]
+    [Tooltip("Maximum visual distance off of sightline")]
     public float lookRadius = 5f;
     [Tooltip("Maximum visual range")]
     public float lookRange = 10f;
@@ -44,8 +44,25 @@ public class AIStateController : MonoBehaviour
     public float checkRadius = 10f;
     [Tooltip("The duration of the pause between patrol segments")]
     public float patrolPauseDuration = 30f;
+    [Tooltip("The attack range used when attempting to damage a target")]
+    public float attackRange = 2f;
+    [Tooltip("Maximum distance from attack cast to count as still hitting")]
+    public float attackRadius = 5f;
+    [Tooltip("The Animator used by this GameObject")]
+    public Animator animator;
+    [Tooltip("The position occupied by this GameObject last frame")]
+    public Vector3 prevPosition;
+    [Tooltip("Whether the animator should render the character running")]
+    public bool isRunning = false;
+    [Tooltip("The walking speed of the agent")]
+    public float walkSpeed = 3.5f;
+    [Tooltip("The run speed of the agent")]
+    public float runSpeed = 7f;
+    [Tooltip("The collider used by this GameObject")]
+    public Collider objectCollider;
+    [Tooltip("The Rigidbody used by this GameObject")]
+    public Rigidbody objectRigidbody;
     #endregion
-
 
     #region Unity Functions
     // Awake is called when the script instance is being loaded
@@ -65,15 +82,37 @@ public class AIStateController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // call update actions
+        // Call update actions
         if (isActive)
         {
             // Update current state
             currentState.UpdateState(this);
         }
 
-        // update timer
+        // Update animator movement animation
+        if (animator != null)
+        {
+            UpdateMovementAnimation();
+        }
+
+        // Update previous position for anything referencing it
+        prevPosition = transform.position;
+
+        // Update timer
         timer += Time.deltaTime;
+    }
+
+    void OnDrawGizmos()
+    {
+        if (AIEyes != null)
+        {
+            // Draw sightlines
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(AIEyes.position, AIEyes.position + AIEyes.forward *
+                lookRange);
+            Gizmos.DrawSphere(AIEyes.position + AIEyes.forward * lookRange,
+                lookRadius);
+        }
     }
     #endregion
 
@@ -100,7 +139,8 @@ public class AIStateController : MonoBehaviour
             {
                 foreach (Transform waypoint in patrolWaypoints)
                 {
-                    NavMesh.SamplePosition(waypoint.position, out hit, checkRadius, 0);
+                    NavMesh.SamplePosition(waypoint.position, out hit, checkRadius,
+                        0);
                     waypoint.position = hit.position;
                 }
             }
@@ -135,14 +175,18 @@ public class AIStateController : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
+    /// <summary>
+    /// Updates horizontal speed and whether the character is running
+    /// for the Animator
+    /// </summary>
+    private void UpdateMovementAnimation()
     {
-        if (AIEyes != null)
-        {
-            // Draw sightlines
-            Gizmos.color = Color.red;
-            Gizmos.DrawLine(AIEyes.position, AIEyes.position + AIEyes.forward * lookRange);
-            Gizmos.DrawSphere(AIEyes.position + AIEyes.forward * lookRange, lookRadius);
-        }
+        // Calculate and pass horizontal speed to animator
+        animator.SetFloat("HorizontalSpeed", Vector3.Magnitude(
+            transform.position - prevPosition));
+
+        // Send whether to play running animation instead of walking to
+        // animator
+        animator.SetBool("Running", isRunning);
     }
 }

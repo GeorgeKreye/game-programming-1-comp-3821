@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6bd84b043c054db8877bcb879ea75c3, type: 3}
+  m_Name: LostTrackOfPlayer
+  m_EditorClassIdentifier: 
+  decisions:
+  - {fileID: 11400000, guid: 7a25a9f986270431e86e1b3529078544, type: 2}
+  - {fileID: 11400000, guid: cc76b4852d5dc4977a4397c2ca52dcfa, type: 2}

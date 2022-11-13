@@ -40,7 +40,6 @@ public class LookDecision : Decision
         {
             // Set as target and return hit
             controller.chaseTarget = hit.transform;
-            Debug.Log("Found target");
             return true;
         }
         return false; // No cast hit

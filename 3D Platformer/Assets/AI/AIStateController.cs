@@ -130,7 +130,10 @@ public class AIStateController : MonoBehaviour
             // Make sure home waypoint is on the navigation mesh
             if (homeWaypoint != null)
             {
-                NavMesh.SamplePosition(homeWaypoint.position, out hit, 10f, 0);
+                NavMesh.SamplePosition(homeWaypoint.position, out hit,
+                    checkRadius, 0);
+                Debug.Log(homeWaypoint.position + "," + hit.position + "," +
+                    checkRadius);
                 homeWaypoint.position = hit.position;
             }
 
@@ -139,8 +142,8 @@ public class AIStateController : MonoBehaviour
             {
                 foreach (Transform waypoint in patrolWaypoints)
                 {
-                    NavMesh.SamplePosition(waypoint.position, out hit, checkRadius,
-                        0);
+                    NavMesh.SamplePosition(waypoint.position, out hit,
+                        checkRadius,0);
                     waypoint.position = hit.position;
                 }
             }

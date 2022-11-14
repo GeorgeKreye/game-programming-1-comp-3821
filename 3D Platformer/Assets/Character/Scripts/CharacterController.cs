@@ -95,12 +95,8 @@ public class CharacterController : MonoBehaviour
         // get movement
         movementInput = context.ReadValue<Vector2>();
 
-        Debug.Log("Movement: " + movementInput);
-
         // get camera relative movement
         CalculateCameraRelativeInput();
-
-        Debug.Log("Movement: " + cameraAdjustedInputDirection);
 
         // move player
         characterMovement.Move(cameraAdjustedInputDirection);

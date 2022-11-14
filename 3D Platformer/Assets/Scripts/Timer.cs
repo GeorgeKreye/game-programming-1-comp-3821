@@ -58,6 +58,7 @@ public class Timer : MonoBehaviour
     public void ResetTimer()
     {
         timerStarted = false;
+        StopCoroutine(StartCountdown());
     }
 
     protected virtual IEnumerator StartCountdown()

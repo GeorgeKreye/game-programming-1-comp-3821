@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="root" style="flex-grow: 1; flex-direction: row;">
+        <ui:VisualElement name="health" style="height: 110px; width: 501px; flex-direction: row;" />
+        <ui:VisualElement name="timer" style="width: 215px; height: 44px; flex-direction: row;">
+            <ui:Label text="Time:" display-tooltip-when-elided="true" name="timerLabel" />
+            <ui:Label text="NaN" display-tooltip-when-elided="true" name="timerValue" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

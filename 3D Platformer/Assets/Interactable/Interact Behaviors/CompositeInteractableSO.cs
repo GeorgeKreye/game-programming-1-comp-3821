@@ -5,6 +5,8 @@ using UnityEngine;
 /// <summary>
 /// Interactable SO for performing multiple interaction behaviors at once
 /// </summary>
+[CreateAssetMenu(menuName = ("Interactables/Composite"), fileName =
+    "CompositeISO")]
 public class CompositeInteractableSO : InteractableSO
 {
     [Tooltip("The Interactable SOs used in this composite interactable")]
@@ -15,7 +17,7 @@ public class CompositeInteractableSO : InteractableSO
         CharacterController controller)
     {
         // Loop through interactable SOs
-        foreach(InteractableSO interactable in interactables)
+        foreach (InteractableSO interactable in interactables)
         {
             // Perform behaviors
             interactable.InteractBehavior(manager, controller);

@@ -51,13 +51,17 @@ public class GameManager : MonoBehaviour
     public UnityEvent OnGameResumed;
 
     /// <summary>
-    /// The amount of lives the player currently has
+    /// The amount of health the player currently has
     /// </summary>
-    public int Lives { get; private set; }
+    public int Health { get; private set; }
 
-    //Event for lives changing
-    [Tooltip("Triggers when lives counter is changed")]
-    public UnityEvent OnLivesChanged;
+    // Event for lives changing
+    [Tooltip("Triggers when HP is changed")]
+    public UnityEvent OnHealthChanged;
+
+    // Event for game over
+    [Tooltip("Triggers when HP is 0 (game over)")]
+    public UnityEvent OnGameOver;
 
     // Run on instance being loaded
     void Awake()
@@ -77,8 +81,8 @@ public class GameManager : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-        // Initial lives
-        Lives = 3;
+        // Initial health
+        Health = 10;
     }
 
     /// <summary>
@@ -146,35 +150,34 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Adds a life to lives counter when called
+    /// Adds HP when called
     /// </summary>
-    public void AddLife()
+    public void AddHealth()
     {
-        // Add life
-        Lives++;
+        // Add health
+        Health++;
 
         // Notify listening objects
-        OnLivesChanged.Invoke();
+        OnHealthChanged.Invoke();
     }
 
     /// <summary>
-    /// Removes a life from lives counter when called; also checks for game over
+    /// Removes HP when called; also checks for game over
     /// </summary>
-    public void RemoveLife()
+    public void RemoveHealth()
     {
         // Remove life
-        Lives--;
+        Health--;
 
         // Check if game over
-        if (Lives <= 0)
+        if (Health <= 0)
         {
-            // Go to game over screen
+            // Set GameOver state
             GameOver();
-            return;
         }
 
         // Notify listening objects
-        OnLivesChanged.Invoke();
+        OnHealthChanged.Invoke();
     }
 
     /// <summary>
@@ -182,7 +185,6 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void GameOver()
     {
-        // Change scene to game over menu
-        ChangeScene("GameOver");
+        OnGameOver.Invoke();
     }
 }

@@ -81,13 +81,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4078f016958f54384b7a7a12bde139e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: {fileID: 0}
-  isActive: 0
+  currentState: {fileID: 11400000, guid: 629e80099ba05422090b64b940694875, type: 2}
+  isActive: 1
   agent: {fileID: 8855915092208476297}
   homeWaypoint: {fileID: 0}
   AIEyes: {fileID: 8855915091965042772}
-  lookRadius: 0
-  lookRange: 0
+  lookRadius: 5
+  lookRange: 15
   chaseTarget: {fileID: 0}
   wanderRadius: 0
   wanderRestart: 1
@@ -103,8 +103,8 @@ MonoBehaviour:
   isRunning: 0
   walkSpeed: 3.5
   runSpeed: 7
-  objectCollider: {fileID: 0}
-  objectRigidbody: {fileID: 0}
+  objectCollider: {fileID: 8918524804941022190}
+  objectRigidbody: {fileID: 2917038814562806650}
 --- !u!195 &8855915092208476297
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -244,7 +244,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Vampire A Lusth
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5866666021909216657, guid: 4a11d1dda061e4145b24629fb0395ae5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4a11d1dda061e4145b24629fb0395ae5, type: 3}
 --- !u!4 &9037667436165980969 stripped
 Transform:

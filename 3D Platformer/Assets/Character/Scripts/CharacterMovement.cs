@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CharacterMovement : BaseMovement
 {
-    [Header("Components/Objects")]
-
+    #region Component Fields
+    [Header("Components")]
     [Tooltip("The Rigidbody of the character")]
     [SerializeField] private Rigidbody characterRigidbody;
 
@@ -19,7 +19,9 @@ public class CharacterMovement : BaseMovement
     [Tooltip("The transform of the character model associated with the " +
         "character")]
     [SerializeField] private Transform characterModel;
+    #endregion
 
+    #region Ground Fields
     [Header("Ground Movement")]
     [Tooltip("The speed that this character accelerates at")]
     [SerializeField] float moveAcceleration = 60f;
@@ -43,7 +45,9 @@ public class CharacterMovement : BaseMovement
 
     [Tooltip("The maximum slope height that the player can climb")]
     [SerializeField] private float maxSlopeHeight = 0.25f;
+    #endregion
 
+    #region Jump Fields
     [Header("Jumping")]
     [Tooltip("The force to apply when jumping")]
     [SerializeField] private float jumpForce = 5f;
@@ -53,6 +57,18 @@ public class CharacterMovement : BaseMovement
 
     [Tooltip("The maximum vertical speed")]
     [SerializeField] private float maxVerticalMoveSpeed = 25f;
+
+    [Tooltip("Whether to allow double jumping")]
+    [SerializeField] private bool allowDoubleJumping = true;
+
+    [Tooltip("Particle effect for double jumping")]
+    [SerializeField] private GameObject doubleJumpFX;
+    #endregion
+
+    /// <summary>
+    /// Whether the player can currently double jump
+    /// </summary>
+    private bool canDoubleJump;
 
     private Vector3 cameraAdjustedInputDirection;
 
@@ -163,6 +179,12 @@ public class CharacterMovement : BaseMovement
 
         // update animation
         animator.SetBool("Grounded", isGrounded);
+
+        // reset double jump if enabled
+        if (isGrounded)
+        {
+            canDoubleJump = allowDoubleJumping;
+        }
     }
 
     private bool ClimbableSlope()
@@ -250,8 +272,9 @@ public class CharacterMovement : BaseMovement
 
     override public void Jump()
     {
-        // make sure jump is being performed while grounded
-        if (isGrounded)
+        // make sure jump is being performed while grounded (or while double
+        // jumping is possible if enabled)
+        if (isGrounded || canDoubleJump)
         {
             // calculate adjusted jump force
             float jumpImpulse = jumpForce * characterRigidbody.mass;
@@ -263,18 +286,34 @@ public class CharacterMovement : BaseMovement
             // send jump to animator component
             animator.SetTrigger("Jump");
         }
+
+        // double jump-specific behavior
+        if (canDoubleJump && !isGrounded)
+        {
+            // crearte particle effect
+            GameObject fx = Instantiate(doubleJumpFX, transform.position,
+                Quaternion.identity);
+
+            // play particle effect
+            fx.GetComponent<ParticleSystem>();
+
+
+            // prevent further jumps
+            canDoubleJump = false;
+        }
     }
 
     override public void JumpCanceled()
     {
-
+        // unused
     }
     #endregion
     #region Unity Functions
     // Start is called before the first frame update
     override protected void Start()
     {
-
+        // Set initial double jump parameter
+        canDoubleJump = allowDoubleJumping;
     }
 
     // Update is called once per frame

@@ -38,10 +38,8 @@ public class PatrolAction : Action
     private void Patrol(AIStateController controller)
     {
         // Check if currently at a waypoint
-        Debug.Log(pauseTime);
         if (checkDistance(controller))
         {
-            Debug.Log("at waypoint");
             // Increment current waypoint
             controller.currentPWaypoint = (controller.currentPWaypoint + 1) %
                 controller.patrolWaypoints.Length;
@@ -60,10 +58,7 @@ public class PatrolAction : Action
         }
         else
         {
-
             // Wait if paused
-            Debug.Log("Paused: " + (pauseTime > -1) + " (pauseTime: " +
-                pauseTime + ")");
             if (pauseTime > -1)
             {
                 // Increment pause time

@@ -185,11 +185,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void GameOver()
     {
+        // Invoke event
         OnGameOver.Invoke();
-    }
-
-    public void DebugHealth()
-    {
-        Debug.Log("Health value: " + Health);
     }
 }

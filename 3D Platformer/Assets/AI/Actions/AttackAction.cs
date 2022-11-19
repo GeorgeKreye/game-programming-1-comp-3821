@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Action for attacking a target (usually the player)
+/// Action for attacking the player
 /// </summary>
 [CreateAssetMenu(menuName = "Pluggable AI/Actions/Attack",
     fileName = "Attack")]
 public class AttackAction : Action
 {
-    [Tooltip("Layer mask containing attackable objects (should only contain" +
-        "objects that can be damaged")]
-    [SerializeField] private LayerMask attackableLayerMask;
+    [Tooltip("The amount of damage attacking does")]
+    [SerializeField] private int damage = 1;
 
     // Performs action
     public override void Act(AIStateController controller)
@@ -21,21 +20,23 @@ public class AttackAction : Action
     }
 
     /// <summary>
-    /// Attacks a target, given its attackable
+    /// Inflicts damage to player and plays attack animation
     /// </summary>
     /// <param name="controller">
     /// The AI state controller referencing this action
     /// </param>
     private void Attack(AIStateController controller)
     {
-        // Make attack cast
-        RaycastHit hit;
-        if (Physics.SphereCast(controller.AIEyes.position,
-            controller.attackRadius, controller.AIEyes.forward, out hit,
-            controller.attackRange, attackableLayerMask))
+        // Tell game manager to inflict damage
+        controller.gameManager.RemoveHealth(damage);
+
+        // Play attack animation
+        controller.animator.SetTrigger("Attack");
+
+        // Tell controller that AI has attacked at least once
+        if (!controller.hasAttacked)
         {
-            // Perform attack animation
-            controller.animator.SetTrigger("Attack");
+            controller.hasAttacked = true;
         }
     }
 }

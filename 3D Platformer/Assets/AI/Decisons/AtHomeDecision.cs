@@ -9,6 +9,7 @@ using UnityEngine;
     fileName = "AtHome")]
 public class AtHomeDecision : Decision
 {
+
     // Performs decision logic
     public override bool Decide(AIStateController controller)
     {
@@ -28,9 +29,18 @@ public class AtHomeDecision : Decision
     /// </returns>
     private bool AtHome(AIStateController controller)
     {
-        // Perform logic
-        return Mathf.Approximately(Vector3.Distance(
-            controller.homeWaypoint.position, controller.transform.position),
-            0f);
+        // Calculate horizontal distance
+        float horizontalDistance = Vector3.Distance(new Vector3(
+            controller.transform.position.x, controller.homeWaypoint.position.y,
+            controller.transform.position.z), controller.homeWaypoint.position);
+
+        // Use Mathf.Approximtately if threshold is 0
+        if (controller.threshold == 0)
+        {
+            return Mathf.Approximately(horizontalDistance, 0f);
+        }
+
+        // Otherwise compare to threshold directly
+        return horizontalDistance < controller.threshold;
     }
 }

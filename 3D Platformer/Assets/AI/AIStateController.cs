@@ -62,6 +62,15 @@ public class AIStateController : MonoBehaviour
     public Collider objectCollider;
     [Tooltip("The Rigidbody used by this GameObject")]
     public Rigidbody objectRigidbody;
+    [Tooltip("The active GameManager instance")]
+    public GameManager gameManager;
+    [Tooltip("The number of patrol cycles that have occured")]
+    public int patrolCycles = 0;
+    [Tooltip("Whehter the AI has attacked once or more")]
+    public bool hasAttacked = false;
+    [Tooltip("The threshold at which to consider the AI approximately at " +
+        "a point")]
+    public float threshold = 0f;
     #endregion
 
     #region Unity Functions
@@ -75,8 +84,8 @@ public class AIStateController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-
+        // Get game manager instance
+        gameManager = GameManager.Instance;
     }
 
     // Update is called once per frame
@@ -169,6 +178,9 @@ public class AIStateController : MonoBehaviour
 
             // Reset timer
             timer = 0f;
+
+            // Reset patrol cycles
+            patrolCycles = 0;
 
             // Restart wander
             wanderRestart = true;

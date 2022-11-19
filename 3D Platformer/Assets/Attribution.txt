@@ -5,3 +5,5 @@ Goal platform - https://www.cgtrader.com/free-3d-models/architectural/decoration
 Brick texture - https://ambientcg.com/view?id=Bricks066
 Various - https://www.kenney.nl/assets/platformer-kit
 Trees - https://free3d.com/3d-model/low-poly-tree-449895.html
+Health icons - https://opengameart.org/content/heart-pixel-art
+Button press sound - https://freesound.org/people/7778/sounds/202309/

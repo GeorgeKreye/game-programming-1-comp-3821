@@ -27,6 +27,7 @@ public class PatrolAction : Action
         Patrol(controller);
     }
 
+    #region Internal methods
     /// <summary>
     /// Has the AI move to the next patrol point, updating it and waiting as
     /// needed
@@ -37,12 +38,16 @@ public class PatrolAction : Action
     private void Patrol(AIStateController controller)
     {
         // Check if currently at a waypoint
-        if (controller.transform.position.Equals(
-            controller.patrolWaypoints[controller.currentPWaypoint].position))
+        Debug.Log(pauseTime);
+        if (checkDistance(controller))
         {
+            Debug.Log("at waypoint");
             // Increment current waypoint
             controller.currentPWaypoint = (controller.currentPWaypoint + 1) %
                 controller.patrolWaypoints.Length;
+
+            // Increment cycle counter
+            controller.patrolCycles++;
 
             // Stop agent
             controller.agent.isStopped = true;
@@ -53,26 +58,62 @@ public class PatrolAction : Action
             // Get pausing start time
             pauseStart = controller.timer;
         }
-
-        // Wait if paused
-        if (pauseTime > -1)
-        {
-            // Increment pause time
-            pauseTime = controller.timer - pauseStart;
-
-            // Check if pause is over
-            if (pauseTime >= controller.patrolPauseDuration)
-            {
-                // End pause
-                pauseTime = -1;
-            }
-        }
         else
         {
-            // Move to next waypoint if not paused
-            controller.agent.SetDestination(
-                controller.patrolWaypoints[
-                    controller.currentPWaypoint].position);
+
+            // Wait if paused
+            Debug.Log("Paused: " + (pauseTime > -1) + " (pauseTime: " +
+                pauseTime + ")");
+            if (pauseTime > -1)
+            {
+                // Increment pause time
+                pauseTime = controller.timer - pauseStart;
+
+                // Check if pause is over
+                if (pauseTime >= controller.patrolPauseDuration)
+                {
+                    // End pause
+                    pauseTime = -1;
+                }
+            }
+            else
+            {
+                // Move to next waypoint if not paused
+                controller.agent.SetDestination(
+                    controller.patrolWaypoints[
+                        controller.currentPWaypoint].position);
+                controller.agent.isStopped = false;
+            }
         }
     }
+
+    /// <summary>
+    /// Checks if the AI's current position (approximately) matches the current
+    /// patrol waypoint position
+    /// </summary>
+    /// <param name="controller">
+    /// The AI state controller referencing this action
+    /// </param>
+    /// <returns>
+    /// Whether the current position matches the waypoint position
+    /// </returns>
+    private bool checkDistance(AIStateController controller)
+    {
+        // Calculate horizontal distance
+        float horizontalDistance = Vector3.Distance(new Vector3(
+            controller.transform.position.x, controller.patrolWaypoints[
+                controller.currentPWaypoint].position.y,
+            controller.transform.position.z),
+            controller.patrolWaypoints[controller.currentPWaypoint].position);
+
+        // Use Mathf.Approximately if threshold is 0
+        if (controller.threshold == 0)
+        {
+            return Mathf.Approximately(horizontalDistance, 0f);
+        }
+
+        // Otherwise compare to threshold directly
+        return horizontalDistance < controller.threshold;
+    }
+    #endregion
 }

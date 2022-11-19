@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67f5ee9e3993948808c41a21ad6da562, type: 3}
   m_Name: ButtonPressSoundISO
   m_EditorClassIdentifier: 
-  sound: {fileID: 0}
+  sound: {fileID: 8300000, guid: 2c92033d5c0ea4cca8f0b7259a4e070c, type: 3}
   source: 1

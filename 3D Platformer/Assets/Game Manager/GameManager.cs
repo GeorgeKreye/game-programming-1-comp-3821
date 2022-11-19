@@ -152,10 +152,10 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Adds HP when called
     /// </summary>
-    public void AddHealth()
+    public void AddHealth(int amount)
     {
         // Add health
-        Health++;
+        Health += amount;
 
         // Notify listening objects
         OnHealthChanged.Invoke();
@@ -164,10 +164,10 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Removes HP when called; also checks for game over
     /// </summary>
-    public void RemoveHealth()
+    public void RemoveHealth(int amount)
     {
-        // Remove life
-        Health--;
+        // Remove health
+        Health -= amount;
 
         // Check if game over
         if (Health <= 0)
@@ -186,5 +186,10 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         OnGameOver.Invoke();
+    }
+
+    public void DebugHealth()
+    {
+        Debug.Log("Health value: " + Health);
     }
 }

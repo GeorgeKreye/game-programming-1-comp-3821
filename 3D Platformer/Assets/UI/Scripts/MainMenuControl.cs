@@ -13,8 +13,8 @@ public class MainMenuControl : MonoBehaviour
     [SerializeField] private UIDocument UIDoc;
     [Tooltip("The name of the starting scene of the game")]
     [SerializeField] private string playScene;
-    //[Tooltip("The Credits UI object")]
-    //[SerializeField] private GameObject credits;
+    [Tooltip("The Credits UI object")]
+    [SerializeField] private GameObject credits;
 
     /// <summary>
     /// The active GameManager instance
@@ -24,7 +24,7 @@ public class MainMenuControl : MonoBehaviour
     ///// <summary>
     ///// The script controlling the credits UI
     ///// </summary>
-    //private CreditsController creditsControl;
+    private CreditsController creditsControl;
 
     //buttons
     /// <summary>
@@ -34,7 +34,7 @@ public class MainMenuControl : MonoBehaviour
     ///// <summary>
     ///// The credits button of the UI
     ///// </summary>
-    //private Button creditsButton;
+    private Button creditsButton;
     /// <summary>
     /// The quit button of the UI
     /// </summary>
@@ -45,12 +45,12 @@ public class MainMenuControl : MonoBehaviour
         // Get buttons
         VisualElement root = UIDoc.rootVisualElement;
         playButton = root.Q<Button>("PlayButton");
-        //creditsButton = root.Q<Button>("CreditsButton");
+        creditsButton = root.Q<Button>("CreditsButton");
         quitButton = root.Q<Button>("QuitButton");
 
         // Set button behavior
         playButton.clicked += PlayButtonClicked;
-        //creditsButton.clicked += CreditsButtonClicked;
+        creditsButton.clicked += CreditsButtonClicked;
         quitButton.clicked += QuitButtonClicked;
     }
 
@@ -64,11 +64,11 @@ public class MainMenuControl : MonoBehaviour
         }
 
         //// Get credits controller
-        //creditsControl = credits.GetComponent<CreditsController>();
-        //if (creditsControl == null)
-        //{
-        //    Debug.LogError("Could not get controller for menu credits UI");
-        //}
+        creditsControl = credits.GetComponent<CreditsController>();
+        if (creditsControl == null)
+        {
+          Debug.LogError("Could not get controller for menu credits UI");
+        }
     }
 
     void OnDestroy()
@@ -91,14 +91,14 @@ public class MainMenuControl : MonoBehaviour
     ///// <summary>
     ///// Opens menu credits upon the credits button being clicked
     ///// </summary>
-    //void CreditsButtonClicked()
-    //{
-    //    // Hide this UI
-    //    UIDoc.rootVisualElement.style.visibility = Visibility.Hidden;
+    void CreditsButtonClicked()
+    {
+        // Hide this UI
+        UIDoc.rootVisualElement.style.visibility = Visibility.Hidden;
 
-    //    // Open credits
-    //    creditsControl.Open();
-    //}
+        // Open credits
+        creditsControl.Open();
+    }
 
     /// <summary>
     /// Exits game upon the quit button being clicked

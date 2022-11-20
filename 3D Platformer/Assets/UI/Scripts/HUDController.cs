@@ -8,6 +8,7 @@ using UnityEngine.UIElements;
 /// </summary>
 public class HUDController : MonoBehaviour
 {
+    #region Serialized fields
     [Tooltip("The UI Document used for the HUD")]
     [SerializeField] private UIDocument UIDoc;
     [Tooltip("The Timer used for level time remaining")]
@@ -16,6 +17,7 @@ public class HUDController : MonoBehaviour
     [SerializeField] private Sprite healthSprite;
     [Tooltip("The size of a health/HP sprite")]
     [SerializeField] private float healthSpriteSize = 16;
+    #endregion
 
     #region Private fields
     /// <summary>
@@ -47,6 +49,14 @@ public class HUDController : MonoBehaviour
         VisualElement root = UIDoc.rootVisualElement;
         healthContainer = root.Q<VisualElement>("health");
         timerDisplay = root.Q<Label>("timerLabel");
+        if (healthContainer == null)
+        {
+            Debug.Log("Could not find health display");
+        }
+        if (timerDisplay == null)
+        {
+            Debug.Log("Could not find timer display");
+        }
 
         // Initial health
         for (int i = 0; i < gameManager.Health; i++)

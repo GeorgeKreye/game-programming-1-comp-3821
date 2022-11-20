@@ -130,6 +130,7 @@ public class AIStateController : MonoBehaviour
     /// </summary>
     public void Setup()
     {
+        /* Doesn't work
         // Don't adjust NavMesh if no agent is attached
         if (agent != null)
         {
@@ -141,8 +142,6 @@ public class AIStateController : MonoBehaviour
             {
                 NavMesh.SamplePosition(homeWaypoint.position, out hit,
                     checkRadius, 0);
-                Debug.Log(homeWaypoint.position + "," + hit.position + "," +
-                    checkRadius);
                 homeWaypoint.position = hit.position;
             }
 
@@ -157,6 +156,7 @@ public class AIStateController : MonoBehaviour
                 }
             }
         }
+           Doesn't work */
     }
 
     /// <summary>

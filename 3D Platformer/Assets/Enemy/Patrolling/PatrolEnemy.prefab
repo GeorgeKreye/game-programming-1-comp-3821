@@ -95,7 +95,7 @@ MonoBehaviour:
   timer: 0
   patrolWaypoints: []
   currentPWaypoint: 0
-  checkRadius: 0
+  checkRadius: 1
   patrolPauseDuration: 30
   attackRange: 2
   attackRadius: 5
@@ -106,6 +106,10 @@ MonoBehaviour:
   runSpeed: 7
   objectCollider: {fileID: 8918524804941022190}
   objectRigidbody: {fileID: 2917038814562806650}
+  gameManager: {fileID: 0}
+  patrolCycles: 3
+  hasAttacked: 0
+  threshold: 0
 --- !u!195 &8855915092208476297
 NavMeshAgent:
   m_ObjectHideFlags: 0

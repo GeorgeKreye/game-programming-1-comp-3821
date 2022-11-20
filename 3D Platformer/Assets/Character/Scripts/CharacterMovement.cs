@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CharacterMovement : BaseMovement
 {
-    #region Component Fields
-    [Header("Components")]
+    #region Component and Object Fields
+    [Header("Components/Objects")]
     [Tooltip("The Rigidbody of the character")]
     [SerializeField] private Rigidbody characterRigidbody;
 
@@ -19,6 +19,9 @@ public class CharacterMovement : BaseMovement
     [Tooltip("The transform of the character model associated with the " +
         "character")]
     [SerializeField] private Transform characterModel;
+
+    [Tooltip("The level Effect Manager")]
+    [SerializeField] private EffectManager effectManager;
     #endregion
 
     #region Ground Fields
@@ -291,12 +294,8 @@ public class CharacterMovement : BaseMovement
         if (canDoubleJump && !isGrounded)
         {
             // crearte particle effect
-            GameObject fx = Instantiate(doubleJumpFX, transform.position,
-                Quaternion.identity);
-
-            // play particle effect
-            fx.GetComponent<ParticleSystem>();
-
+            effectManager.AddParticle(Instantiate(doubleJumpFX,
+                transform.position, Quaternion.identity));
 
             // prevent further jumps
             canDoubleJump = false;

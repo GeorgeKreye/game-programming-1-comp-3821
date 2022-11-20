@@ -28,13 +28,23 @@ public class CharacterController : MonoBehaviour
     /// </summary>
     private int currentCamera;
 
-
     [SerializeField] private Transform cameraTransform;
     [SerializeField] private Transform cameraOrientation;
 
     [Header("Component/Object referece")]
     [Tooltip("The BaseMovement component to send movement input to")]
     [SerializeField] private BaseMovement characterMovement;
+
+    [Tooltip("The character model")]
+    [SerializeField] private GameObject characterModel;
+
+    [Tooltip("The death ragdoll to spawn")]
+    [SerializeField] private GameObject deathRagdoll;
+
+    /// <summary>
+    /// The active gameManager instance
+    /// </summary>
+    private GameManager gameManager;
 
     private void SubscribeInputActions()
     {
@@ -56,8 +66,10 @@ public class CharacterController : MonoBehaviour
 
     void Awake()
     {
+        // get input
         input = new CharacterInput();
 
+        // listen for input actions
         SubscribeInputActions();
 
         // start with player action map
@@ -77,17 +89,27 @@ public class CharacterController : MonoBehaviour
         // activate initial camera
         currentCamera = startingCamera;
         cameras[currentCamera].SetActive(true);
+
+        // get game manager
+        gameManager = GameManager.Instance;
+
+        // listen for game over
+        gameManager.OnGameOver.AddListener(OnGameOver);
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 
     private void OnDestroy()
     {
+        // stop listening for input actions
         UnsubscribeInputActions();
+
+        // stop listening for game over
+        gameManager.OnGameOver.RemoveListener(OnGameOver);
     }
 
     private void MoveActionPerformed(InputAction.CallbackContext context)
@@ -164,6 +186,19 @@ public class CharacterController : MonoBehaviour
                 input.UI.Enable();
                 break;
         }
+    }
+
+    /// <summary>
+    /// Behavior on game over
+    /// </summary>
+    private void OnGameOver()
+    {
+        // spawn ragdoll
+        Instantiate(deathRagdoll, transform.position, transform.rotation);
+
+        // disable player
+        characterModel.SetActive(false);
+        UnsubscribeInputActions();
     }
 }
 

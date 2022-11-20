@@ -193,7 +193,7 @@ public class CharacterController : MonoBehaviour
             gameManager.ResumeGame();
 
             // resume sound
-            characterAudioSource.Play();
+            characterAudioSource.UnPause();
         }
     }
     #endregion

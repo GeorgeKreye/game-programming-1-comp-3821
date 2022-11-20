@@ -212,6 +212,7 @@ MonoBehaviour:
   characterModel: {fileID: 7220736073921086532}
   deathRagdoll: {fileID: 6768191415655169723, guid: 1c5eaba2316024d9b9d969b77f663f81,
     type: 3}
+  characterAudioSource: {fileID: 7890752040799895342}
   interactManager: {fileID: 523718679296848366}
 --- !u!82 &7890752040799895342
 AudioSource:
@@ -350,12 +351,12 @@ PrefabInstance:
     - target: {fileID: 3520443153138697563, guid: d370fc39cf4c54485af27b8dfb990924,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.0000000228801
+      value: 0.00000002288009
       objectReference: {fileID: 0}
     - target: {fileID: 3520443153138697563, guid: d370fc39cf4c54485af27b8dfb990924,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.000000008283737
+      value: -0.000000008283735
       objectReference: {fileID: 0}
     - target: {fileID: 3520443153143698230, guid: d370fc39cf4c54485af27b8dfb990924,
         type: 3}
@@ -430,22 +431,22 @@ PrefabInstance:
     - target: {fileID: 3520443153578637855, guid: d370fc39cf4c54485af27b8dfb990924,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 3e-45
+      value: -1e-45
       objectReference: {fileID: 0}
     - target: {fileID: 3520443153578637855, guid: d370fc39cf4c54485af27b8dfb990924,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -1e-45
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3520443153731551157, guid: d370fc39cf4c54485af27b8dfb990924,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000016340827
+      value: 0.000000016340826
       objectReference: {fileID: 0}
     - target: {fileID: 3520443153731551157, guid: d370fc39cf4c54485af27b8dfb990924,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0000000053885967
+      value: -0.0000000053885962
       objectReference: {fileID: 0}
     - target: {fileID: 3520443153907285699, guid: d370fc39cf4c54485af27b8dfb990924,
         type: 3}

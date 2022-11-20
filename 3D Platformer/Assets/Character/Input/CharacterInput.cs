@@ -80,6 +80,15 @@ public partial class @CharacterInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""7d7d03e4-995d-4c63-859e-139553ccc57e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -335,6 +344,17 @@ public partial class @CharacterInput : IInputActionCollection2, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e01a56ad-7da8-4537-8602-9475b4d4c474"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -428,6 +448,15 @@ public partial class @CharacterInput : IInputActionCollection2, IDisposable
                     ""type"": ""PassThrough"",
                     ""id"": ""8deb014f-6978-46b1-a66c-a5c86b8515fb"",
                     ""expectedControlType"": ""Quaternion"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Unpause"",
+                    ""type"": ""Button"",
+                    ""id"": ""f4c11811-3385-4bdb-80bc-2c92ecf08d9f"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -851,6 +880,17 @@ public partial class @CharacterInput : IInputActionCollection2, IDisposable
                     ""action"": ""TrackedDeviceOrientation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f8dda1d3-51be-4409-ac56-af1ac885c781"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Unpause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -926,6 +966,7 @@ public partial class @CharacterInput : IInputActionCollection2, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Camera = m_Player.FindAction("Camera", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+        m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -938,6 +979,7 @@ public partial class @CharacterInput : IInputActionCollection2, IDisposable
         m_UI_RightClick = m_UI.FindAction("RightClick", throwIfNotFound: true);
         m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
+        m_UI_Unpause = m_UI.FindAction("Unpause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1003,6 +1045,7 @@ public partial class @CharacterInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Camera;
     private readonly InputAction m_Player_Interact;
+    private readonly InputAction m_Player_Pause;
     public struct PlayerActions
     {
         private @CharacterInput m_Wrapper;
@@ -1013,6 +1056,7 @@ public partial class @CharacterInput : IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Camera => m_Wrapper.m_Player_Camera;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
+        public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1040,6 +1084,9 @@ public partial class @CharacterInput : IInputActionCollection2, IDisposable
                 @Interact.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                @Pause.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1062,6 +1109,9 @@ public partial class @CharacterInput : IInputActionCollection2, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
         }
     }
@@ -1080,6 +1130,7 @@ public partial class @CharacterInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_RightClick;
     private readonly InputAction m_UI_TrackedDevicePosition;
     private readonly InputAction m_UI_TrackedDeviceOrientation;
+    private readonly InputAction m_UI_Unpause;
     public struct UIActions
     {
         private @CharacterInput m_Wrapper;
@@ -1094,6 +1145,7 @@ public partial class @CharacterInput : IInputActionCollection2, IDisposable
         public InputAction @RightClick => m_Wrapper.m_UI_RightClick;
         public InputAction @TrackedDevicePosition => m_Wrapper.m_UI_TrackedDevicePosition;
         public InputAction @TrackedDeviceOrientation => m_Wrapper.m_UI_TrackedDeviceOrientation;
+        public InputAction @Unpause => m_Wrapper.m_UI_Unpause;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1133,6 +1185,9 @@ public partial class @CharacterInput : IInputActionCollection2, IDisposable
                 @TrackedDeviceOrientation.started -= m_Wrapper.m_UIActionsCallbackInterface.OnTrackedDeviceOrientation;
                 @TrackedDeviceOrientation.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnTrackedDeviceOrientation;
                 @TrackedDeviceOrientation.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnTrackedDeviceOrientation;
+                @Unpause.started -= m_Wrapper.m_UIActionsCallbackInterface.OnUnpause;
+                @Unpause.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnUnpause;
+                @Unpause.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnUnpause;
             }
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
@@ -1167,6 +1222,9 @@ public partial class @CharacterInput : IInputActionCollection2, IDisposable
                 @TrackedDeviceOrientation.started += instance.OnTrackedDeviceOrientation;
                 @TrackedDeviceOrientation.performed += instance.OnTrackedDeviceOrientation;
                 @TrackedDeviceOrientation.canceled += instance.OnTrackedDeviceOrientation;
+                @Unpause.started += instance.OnUnpause;
+                @Unpause.performed += instance.OnUnpause;
+                @Unpause.canceled += instance.OnUnpause;
             }
         }
     }
@@ -1224,6 +1282,7 @@ public partial class @CharacterInput : IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnCamera(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
@@ -1237,5 +1296,6 @@ public partial class @CharacterInput : IInputActionCollection2, IDisposable
         void OnRightClick(InputAction.CallbackContext context);
         void OnTrackedDevicePosition(InputAction.CallbackContext context);
         void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
+        void OnUnpause(InputAction.CallbackContext context);
     }
 }

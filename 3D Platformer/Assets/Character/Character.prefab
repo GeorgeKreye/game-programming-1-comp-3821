@@ -212,6 +212,7 @@ MonoBehaviour:
   characterModel: {fileID: 7220736073921086532}
   deathRagdoll: {fileID: 6768191415655169723, guid: 1c5eaba2316024d9b9d969b77f663f81,
     type: 3}
+  interactManager: {fileID: 523718679296848366}
 --- !u!82 &7890752040799895342
 AudioSource:
   m_ObjectHideFlags: 0

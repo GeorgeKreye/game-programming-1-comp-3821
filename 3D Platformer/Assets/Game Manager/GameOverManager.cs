@@ -58,6 +58,9 @@ public class GameOverManager : MonoBehaviour
             // Determine if timer has expired
             if (time >= sceneChangeDelay)
             {
+                // Reset to default health
+                gameManager.AddHealth(10);
+
                 // Change scene
                 gameManager.ChangeScene("GameOver");
 

@@ -75,7 +75,6 @@ public class PressableButtonO : MonoBehaviour
             // perform movement
             animationTarget.position = Vector3.MoveTowards(
                 animationTarget.position, target, pressSpeed * Time.deltaTime);
-            Debug.Log("Position: " + animationTarget.position);
 
             // reverse & invoke event at endpoint
             if (!reversed && Mathf.Approximately(Vector3.Distance(
@@ -83,7 +82,6 @@ public class PressableButtonO : MonoBehaviour
             {
                 reversed = true;
                 OnButtonPressed.Invoke();
-                Debug.Log("Invoking event");
             }
 
             // stop moving if animation has ended

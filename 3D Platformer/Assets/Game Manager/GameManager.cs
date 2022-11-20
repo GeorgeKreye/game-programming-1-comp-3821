@@ -63,6 +63,11 @@ public class GameManager : MonoBehaviour
     [Tooltip("Triggers when HP is 0 (game over)")]
     public UnityEvent OnGameOver;
 
+    /// <summary>
+    /// Whether the game is over
+    /// </summary>
+    private bool gameIsOver = false;
+
     // Run on instance being loaded
     void Awake()
     {
@@ -172,7 +177,7 @@ public class GameManager : MonoBehaviour
         // Check if game over
         if (Health <= 0)
         {
-            // Set GameOver state
+            // Declare game over
             GameOver();
         }
 
@@ -185,7 +190,11 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void GameOver()
     {
-        // Invoke event
-        OnGameOver.Invoke();
+        // Only invoke if game hasn't already been declared over
+        if (!gameIsOver)
+        {
+            // Invoke event
+            OnGameOver.Invoke();
+        }
     }
 }

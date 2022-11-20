@@ -41,10 +41,12 @@ public class CharacterInteractManager : MonoBehaviour
     {
         // Add to list of interactable objects being tracked
         interactableObjects.Add(obj);
+        UnityEngine.Debug.Log("Tracking " + obj);
 
         // Invoke OnInteractablesExist if list was previously empty
         if (interactableObjects.Count == 1)
         {
+
             OnInteractablesExist.Invoke();
         }
     }
@@ -63,6 +65,7 @@ public class CharacterInteractManager : MonoBehaviour
         {
             // Remove from list
             interactableObjects.Remove(obj);
+            UnityEngine.Debug.Log("Stopped tracking " + obj);
 
             // Invoke OnInteractablesDoNotExist if list is now empty
             if (interactableObjects.Count == 0)
@@ -114,6 +117,7 @@ public class CharacterInteractManager : MonoBehaviour
             // Interact with first object
             interactableObjects[0].GetComponent<IInteractable>().Interact(this,
                 playerController);
+            UnityEngine.Debug.Log("Interacted with " + interactableObjects[0]);
         }
     }
 

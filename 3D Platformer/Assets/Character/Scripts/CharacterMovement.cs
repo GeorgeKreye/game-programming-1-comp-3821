@@ -90,6 +90,16 @@ public class CharacterMovement : BaseMovement
     /// </summary>
     private bool isFalling;
 
+    /// <summary>
+    /// Whether to apply movement (disable rigidbody if false)
+    /// </summary>
+    private bool active = true;
+
+    /// <summary>
+    /// The active GameManager instance
+    /// </summary>
+    private GameManager gameManager;
+
     // called by fixed update
     private void MoveCharacter()
     {
@@ -255,6 +265,14 @@ public class CharacterMovement : BaseMovement
         animator.SetBool("Falling", isFalling);
     }
 
+    /// <summary>
+    /// Disables movement on game over.
+    /// </summary>
+    private void OnGameOver()
+    {
+        active = false;
+    }
+
     #region BaseMovement Functions
     override public void Move(Vector3 moveDir)
     {
@@ -313,6 +331,12 @@ public class CharacterMovement : BaseMovement
     {
         // Set initial double jump parameter
         canDoubleJump = allowDoubleJumping;
+
+        // get game manager
+        gameManager = GameManager.Instance;
+
+        // listen for game over
+        gameManager.OnGameOver.AddListener(OnGameOver);
     }
 
     // Update is called once per frame
@@ -323,25 +347,37 @@ public class CharacterMovement : BaseMovement
 
     override protected void FixedUpdate()
     {
+        if (active)
+        {
+            // check if grounded
+            CheckGrounded();
 
-        // check if grounded
-        CheckGrounded();
+            // check if falling
+            CheckFalling();
 
-        // check if falling
-        CheckFalling();
+            // move
+            MoveCharacter();
 
-        // move
-        MoveCharacter();
+            // cap velocity
+            LimitVelocity();
 
-        // cap velocity
-        LimitVelocity();
+            // update ground animation
+            GroundAnimation();
 
-        // update ground animation
-        GroundAnimation();
+            // update rotation
+            RotateCharacter();
+        }
+        else
+        {
+            // disable rigidbody
+            characterRigidbody.Sleep();
+        }
 
-        // update rotation
-        RotateCharacter();
+    }
 
+    void OnDestroy()
+    {
+        gameManager.OnGameOver.RemoveListener(OnGameOver);
     }
     #endregion
 }

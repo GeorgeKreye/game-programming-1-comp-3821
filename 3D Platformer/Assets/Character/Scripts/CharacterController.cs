@@ -41,6 +41,12 @@ public class CharacterController : MonoBehaviour
     [Tooltip("The death ragdoll to spawn")]
     [SerializeField] private GameObject deathRagdoll;
 
+    [Tooltip("The audio source attached to this character")]
+    [SerializeField] private AudioSource characterAudioSource;
+
+    [Tooltip("The interact manager attached to this character")]
+    [SerializeField] private CharacterInteractManager interactManager;
+
     /// <summary>
     /// The active gameManager instance
     /// </summary>
@@ -53,6 +59,9 @@ public class CharacterController : MonoBehaviour
         input.Player.Jump.started += JumpActionPerformed;
         input.Player.Jump.canceled += JumpActionCancelled;
         input.Player.Camera.performed += CameraActionPerformed;
+        input.Player.Interact.performed += InteractActionPerformed;
+        input.Player.Pause.performed += PauseActionPerformed;
+        input.UI.Unpause.performed += UnpauseActionPerformed;
     }
 
     private void UnsubscribeInputActions()
@@ -62,6 +71,9 @@ public class CharacterController : MonoBehaviour
         input.Player.Jump.started -= JumpActionPerformed;
         input.Player.Jump.canceled -= JumpActionCancelled;
         input.Player.Camera.performed -= CameraActionPerformed;
+        input.Player.Interact.performed -= InteractActionPerformed;
+        input.Player.Pause.performed -= PauseActionPerformed;
+        input.UI.Unpause.performed -= UnpauseActionPerformed;
     }
 
     void Awake()
@@ -112,6 +124,7 @@ public class CharacterController : MonoBehaviour
         gameManager.OnGameOver.RemoveListener(OnGameOver);
     }
 
+    #region Input Actions
     private void MoveActionPerformed(InputAction.CallbackContext context)
     {
         // get movement
@@ -151,6 +164,39 @@ public class CharacterController : MonoBehaviour
         currentCamera = (currentCamera + 1) % cameras.Length;
         cameras[currentCamera].SetActive(true);
     }
+
+    private void InteractActionPerformed(InputAction.CallbackContext context)
+    {
+        // tell interact manager to interact
+        interactManager.Interact();
+    }
+
+    private void PauseActionPerformed(InputAction.CallbackContext context)
+    {
+        // failsafe to prevent unneeded state changes
+        if (gameManager.CurrentPauseState == GameManager.PauseState.Playing)
+        {
+            // tell game manager to pause
+            gameManager.PauseGame();
+
+            // pause sound
+            characterAudioSource.Pause();
+        }
+    }
+
+    private void UnpauseActionPerformed(InputAction.CallbackContext context)
+    {
+        // failsafe to prevent unneeded state changes
+        if (gameManager.CurrentPauseState == GameManager.PauseState.Paused)
+        {
+            // tell game manager to resume
+            gameManager.ResumeGame();
+
+            // resume sound
+            characterAudioSource.Play();
+        }
+    }
+    #endregion
 
     private void CalculateCameraRelativeInput()
     {

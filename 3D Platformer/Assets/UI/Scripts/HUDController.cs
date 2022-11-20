@@ -46,7 +46,7 @@ public class HUDController : MonoBehaviour
         // Get UI elements
         VisualElement root = UIDoc.rootVisualElement;
         healthContainer = root.Q<VisualElement>("health");
-        timerDisplay = root.Q<Label>("timer");
+        timerDisplay = root.Q<Label>("timerLabel");
 
         // Initial health
         for (int i = 0; i < gameManager.Health; i++)

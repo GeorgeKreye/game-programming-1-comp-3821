@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a33910a4d42604ba9a61b51d6f053f55
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - UIDoc: {instanceID: 0}
+  - levelTimer: {instanceID: 0}
+  - healthSprite: {fileID: 21300000, guid: 1071b93f3e9914d9c8a4c3823f272772, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/MenuButtons.uss?fileID=7433441132597879392&amp;guid=31dbf3086c20242bbb699f0d2c117eab&amp;type=3#MenuButtons" />
+    <Style src="project://database/Assets/UI/MenuText.uss?fileID=7433441132597879392&amp;guid=27f433b0b3dc2419cb080dd7fd586d06&amp;type=3#MenuText" />
+    <ui:VisualElement name="Root" style="flex-grow: 1; align-items: center; justify-content: center;">
+        <ui:VisualElement name="CreditsBox" style="background-color: rgb(255, 255, 255); height: 112px; width: 274px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-left-width: 3px; border-right-width: 3px; border-top-width: 3px; border-bottom-width: 3px; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; align-items: center; justify-content: center;">
+            <ui:Label text="CREDITS" display-tooltip-when-elided="true" name="CreditsTitle" class="title" />
+            <ui:Label text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut consectetur massa, tempus interdum nisl. Phasellus enim velit, condimentum pretium varius id, dapibus non orci. Praesent vestibulum euismod ante gravida sagittis." display-tooltip-when-elided="true" name="CreditsBody" class="paragraph" />
+            <ui:Button text="Close" display-tooltip-when-elided="true" name="CloseButton" class="button" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
